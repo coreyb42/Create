@@ -16,4 +16,37 @@ if (file("Ponder").exists()) {
     }
 }
 
+// The 26.2 port develops unpublished companion libraries from sibling forks.
+// Keep this opt-in so a normal checkout continues to resolve released Maven
+// artifacts and never depends on a developer-specific directory layout.
+def useLocalPortDependencies = gradle.startParameter.projectProperties
+    .get("use_local_port_dependencies")?.toBoolean() ?: false
+if (useLocalPortDependencies) {
+    def flywheelDirectory = file("../Flywheel")
+    def ponderDirectory = file("../Ponder")
+    def registrateDirectory = file("../Registrate")
+
+    if (!flywheelDirectory.isDirectory() || !ponderDirectory.isDirectory() || !registrateDirectory.isDirectory()) {
+        throw new GradleException("Local 26.2 dependencies require sibling Flywheel, Ponder, and Registrate checkouts.")
+    }
+
+    includeBuild(flywheelDirectory) {
+        dependencySubstitution {
+            substitute module("dev.engine-room.flywheel:flywheel-neoforge-api-26.2") using project(":neoforge")
+            substitute module("dev.engine-room.flywheel:flywheel-neoforge-26.2") using project(":neoforge")
+            substitute module("dev.engine-room.vanillin:vanillin-neoforge-26.2") using project(":vanillinNeoForge")
+        }
+    }
+    includeBuild(ponderDirectory) {
+        dependencySubstitution {
+            substitute module("net.createmod.ponder:ponder-neoforge") using project(":neoforge")
+        }
+    }
+    includeBuild(registrateDirectory) {
+        dependencySubstitution {
+            substitute module("com.tterrag.registrate:Registrate") using project(":")
+        }
+    }
+}
+
 rootProject.name = "$mod_id-$minecraft_version"

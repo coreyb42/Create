@@ -181,7 +181,16 @@ integrations are explicitly disabled only for the development environment.
 
 ## Immediate next action
 
-Recheck the required dependency artifacts. If compatible Ponder, Flywheel, and
-Vanillin releases are available, begin milestone 1. If not, the next decision is
-whether to wait for their 26.2 ports or retarget this branch to the viable 26.1.2
-ecosystem; that decision requires user/project-owner direction.
+The dependency forks now resolve against NeoForge 26.2.0.88 using Java 25 and
+the no-remap Architectury Loom mode. This exposed the remaining prerequisite:
+Flywheel is a source-level port, not a version-coordinate update. Minecraft
+26.2 ships unobfuscated official names and substantially redesigned client
+rendering/model APIs; Flywheel currently reaches its common-source compiler
+stage and reports the corresponding migration work (render types, baked-model
+interfaces, light handling, renderer state, and related platform hooks).
+
+Keep Create's local composite dependencies opt-in until Flywheel has a clean
+NeoForge build. Once it does, validate Ponder against that composite build,
+then update Create's dependency matrix and begin its compiler-guided source
+port. Do not publish the fork artifacts before those builds and runtime smoke
+tests pass.

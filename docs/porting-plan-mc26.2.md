@@ -27,6 +27,8 @@ scope for this branch.
 | Ponder | Published metadata ends at `1.0.87+mc1.21.1`; source has `mc26.1/dev`, not a 26.2 branch. | Required dependency unavailable for 26.2. |
 | Flywheel / Vanillin | The `flywheel-neoforge-26.2` and `vanillin-neoforge-26.2` Maven paths return 404; Flywheel source has `26.1.2/dev`, not 26.2. | Required client rendering dependencies unavailable for 26.2. |
 | Registrate | Source has a `26.2/dev` branch, although the snapshot Maven metadata does not yet advertise a 26.2 release. | Possible source-composite candidate, but not a published dependency to assume. |
+| Runtime/toolchain | Minecraft 26.2 requires Java 25 at Gradle runtime. | Upgrade all target builds from Java 21 before resolving or compiling 26.2. |
+| Flywheel build system | Flywheel's legacy Loom build cannot resolve 26.2 official Mojang mappings; NeoForge 26.2's ModDev configuration uses NeoForm instead. | Port Flywheel's build/mapping setup before its Java source can be compiled. |
 
 Primary sources:
 
@@ -72,9 +74,14 @@ FTB Chunks/Teams/Library, JourneyMap, and Xaero's World Map.
 4. If Ponder and Flywheel remain at 26.1, pause this 26.2 port. The viable
    alternatives are waiting for the dependencies or deliberately retargeting the
    branch to 26.1.2 after a separate target decision.
+5. For Flywheel specifically, complete the Loom-to-26.2 mapping/build-system
+   migration (or use an upstream-supported Loom/NeoForm configuration) before
+   attempting Java API migration. Its current legacy Loom layout does not find
+   Mojang mappings for 26.2.
 
 **Exit criteria:** Gradle resolves exact target artifacts for NeoForge, Ponder,
-Flywheel, Vanillin, and Registrate without local unpublished state.
+Flywheel, Vanillin, and Registrate without local unpublished state; companion
+builds run with Java 25 and establish target mappings.
 
 ### 1. Establish a minimal reproducible 26.2 build
 

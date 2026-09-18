@@ -4,7 +4,7 @@ plugins {
     id("maven-publish")
     id("net.kyori.blossom") version "2.2.0" // https://github.com/KyoriPowered/blossom
     id("dev.ithundxr.silk") version "1.0.1" // https://github.com/ithundxr/silk
-    id("net.neoforged.moddev") version "2.0.141" // https://projects.neoforged.net/neoforged/ModDevGradle
+    id("net.neoforged.moddev") version "2.0.147" // https://projects.neoforged.net/neoforged/ModDevGradle
     id("me.modmuss50.mod-publish-plugin") version "1.1.0" // https://github.com/modmuss50/mod-publish-plugin
 }
 
@@ -16,7 +16,7 @@ group = "com.simibubi.create"
 version = mod_version + (dev && buildNumber != null ? "-${buildNumber}" : "")
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
     withSourcesJar()
 }
 
@@ -145,14 +145,13 @@ dependencies {
     })
 
     // Local dependencies - not published to consumers
-    localRuntimeOnly("dev.engine-room.vanillin:vanillin-neoforge-$minecraft_version:$vanillin_version")
-
-    localImplementation("mezz.jei:jei-$minecraft_version-neoforge:$jei_version")
-
-    compileOnly("top.theillusivec4.curios:curios-neoforge:$curios_version+$minecraft_version:api")
-    localRuntimeOnly("top.theillusivec4.curios:curios-neoforge:$curios_version+$minecraft_version")
-
-    compileOnly("maven.modrinth:sodium:mc$minecraft_version-$sodium_version-neoforge")
+    if (enable_optional_integrations.toBoolean()) {
+        localRuntimeOnly("dev.engine-room.vanillin:vanillin-neoforge-$minecraft_version:$vanillin_version")
+        localImplementation("mezz.jei:jei-$minecraft_version-neoforge:$jei_version")
+        compileOnly("top.theillusivec4.curios:curios-neoforge:$curios_version+$minecraft_version:api")
+        localRuntimeOnly("top.theillusivec4.curios:curios-neoforge:$curios_version+$minecraft_version")
+        compileOnly("maven.modrinth:sodium:mc$minecraft_version-$sodium_version-neoforge")
+    }
 
     if (cc_tweaked_enable.toBoolean()) {
         compileOnly("cc.tweaked:cc-tweaked-$minecraft_version-core-api:$cc_tweaked_version")
@@ -160,23 +159,25 @@ dependencies {
         localRuntimeOnly("cc.tweaked:cc-tweaked-$minecraft_version-forge:$cc_tweaked_version")
     }
 
-    compileOnly("maven.modrinth:farmers-delight:${farmers_delight_version}")
-    if (farmers_delight_enable.toBoolean()) {
+    if (enable_optional_integrations.toBoolean()) {
+        compileOnly("maven.modrinth:farmers-delight:${farmers_delight_version}")
+    }
+    if (enable_optional_integrations.toBoolean() && farmers_delight_enable.toBoolean()) {
         localImplementation("maven.modrinth:farmers-delight:${farmers_delight_version}")
     }
 
-    localRuntimeOnly("dev.architectury:architectury-neoforge:13d.0.8")
-    localImplementation("dev.ftb.mods:ftb-chunks-neoforge:2101.1.1")
-    localImplementation("dev.ftb.mods:ftb-teams-neoforge:2101.1.0")
-    localImplementation("dev.ftb.mods:ftb-library-neoforge:2101.1.3")
-
-    localImplementation("maven.modrinth:journeymap:1.21.1-6.0.0-beta.54+neoforge")
-    localImplementation("info.journeymap:journeymap-api-neoforge:2.0.0-1.21.1-20260205.200232-15") {
-        exclude(group: "curse.maven") // Pulls in a old version of journey map which is for forge
+    if (enable_optional_integrations.toBoolean()) {
+        localRuntimeOnly("dev.architectury:architectury-neoforge:13d.0.8")
+        localImplementation("dev.ftb.mods:ftb-chunks-neoforge:2101.1.1")
+        localImplementation("dev.ftb.mods:ftb-teams-neoforge:2101.1.0")
+        localImplementation("dev.ftb.mods:ftb-library-neoforge:2101.1.3")
+        localImplementation("maven.modrinth:journeymap:1.21.1-6.0.0-beta.54+neoforge")
+        localImplementation("info.journeymap:journeymap-api-neoforge:2.0.0-1.21.1-20260205.200232-15") {
+            exclude(group: "curse.maven")
+        }
+        compileOnly("xaero.lib:xaerolib-neoforge-1.21:1.0.42")
+        compileOnly("curse.maven:xaeros-world-map-317780:7401095")
     }
-
-    compileOnly("xaero.lib:xaerolib-neoforge-1.21:1.0.42")
-    compileOnly("curse.maven:xaeros-world-map-317780:7401095")
 }
 
 sourceSets.main {

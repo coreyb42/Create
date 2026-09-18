@@ -19,8 +19,10 @@ if (file("Ponder").exists()) {
 // The 26.2 port develops unpublished companion libraries from sibling forks.
 // Keep this opt-in so a normal checkout continues to resolve released Maven
 // artifacts and never depends on a developer-specific directory layout.
-def useLocalPortDependencies = gradle.startParameter.projectProperties
-    .get("use_local_port_dependencies")?.toBoolean() ?: false
+def useLocalPortDependencies = providers.gradleProperty("use_local_port_dependencies")
+    .map { it.toBoolean() }
+    .orElse(false)
+    .get()
 if (useLocalPortDependencies) {
     def flywheelDirectory = file("../Flywheel")
     def ponderDirectory = file("../Ponder")

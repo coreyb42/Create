@@ -2,11 +2,11 @@
 
 ## Status and decision
 
-**Status: discovery complete; implementation is blocked at the required-library
-gate.** This branch remains on the 1.21.1 source and dependency matrix until the
-gate is resolved. Do not change `minecraft_version` yet: a direct change makes
-the build unable to resolve Create's required Ponder, Flywheel, and Vanillin
-artifacts.
+**Status: dependency source ports are in progress; Create remains gated on
+Flywheel's renderer migration.** This branch remains on the 1.21.1 source and
+dependency matrix until the gate is resolved. Do not change `minecraft_version`
+yet: a direct change makes the build unable to resolve Create's required Ponder,
+Flywheel, and Vanillin artifacts.
 
 The target is Minecraft Java **26.2**, the latest stable Minecraft release at
 research time (2026-09-17), with NeoForge **26.2.0.88** selected initially from
@@ -29,6 +29,8 @@ scope for this branch.
 | Registrate | Source has a `26.2/dev` branch, although the snapshot Maven metadata does not yet advertise a 26.2 release. | Possible source-composite candidate, but not a published dependency to assume. |
 | Runtime/toolchain | Minecraft 26.2 requires Java 25 at Gradle runtime. | Upgrade all target builds from Java 21 before resolving or compiling 26.2. |
 | Flywheel build system | Flywheel's legacy Loom build cannot resolve 26.2 official Mojang mappings; NeoForge 26.2's ModDev configuration uses NeoForm instead. | Port Flywheel's build/mapping setup before its Java source can be compiled. |
+| Flywheel common models | The fork now compiles `:common:compileLibJava` on Java 25 against NeoForge 26.2.0.88. | The shared model/material API migration is underway and verified independently. |
+| Flywheel renderer | 26.2 replaced the exposed OpenGL-backed `AbstractTexture` and `RenderTarget` APIs with opaque `GpuTexture`, `GpuTextureView`, and GPU command/pipeline objects. | The legacy Flywheel OpenGL shader, texture, and OIT framebuffer backends require an architectural renderer port; wrapping or renaming calls cannot produce a working client. |
 
 Primary sources:
 
@@ -182,12 +184,20 @@ integrations are explicitly disabled only for the development environment.
 ## Immediate next action
 
 The dependency forks now resolve against NeoForge 26.2.0.88 using Java 25 and
-the no-remap Architectury Loom mode. This exposed the remaining prerequisite:
-Flywheel is a source-level port, not a version-coordinate update. Minecraft
-26.2 ships unobfuscated official names and substantially redesigned client
-rendering/model APIs; Flywheel currently reaches its common-source compiler
-stage and reports the corresponding migration work (render types, baked-model
-interfaces, light handling, renderer state, and related platform hooks).
+the no-remap Architectury Loom mode. Registrate's `compileJava` and Flywheel's
+`:common:compileLibJava` both succeed. Flywheel's shared model/material port
+includes the 26.2 identifiers, block-state model interface, chunk section
+layers, sprite lookup, lighting, and camera API changes.
+
+The remaining Flywheel prerequisite is an architectural renderer port. The
+current backend compilation reaches the legacy OpenGL implementation and fails
+where 26.2 deliberately removes texture IDs, framebuffer depth IDs, and
+stateful `RenderSystem` methods. Port the shader/resource ownership and OIT
+pipeline to `GpuTexture`, `GpuTextureView`, `GpuSampler`, `GpuDevice`, command
+encoders, and the 26.2 pipeline APIs before re-enabling the backend. Do not
+substitute no-op rendering or direct calls against inaccessible Minecraft GPU
+resources: either would compile only by dropping required visuals or would fail
+at runtime.
 
 Keep Create's local composite dependencies opt-in until Flywheel has a clean
 NeoForge build. Once it does, validate Ponder against that composite build,

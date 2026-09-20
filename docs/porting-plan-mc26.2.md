@@ -2,11 +2,11 @@
 
 ## Status and decision
 
-**Status: dependency source ports are in progress; Create remains gated on
-Flywheel's renderer migration.** This branch remains on the 1.21.1 source and
-dependency matrix until the gate is resolved. Do not change `minecraft_version`
-yet: a direct change makes the build unable to resolve Create's required Ponder,
-Flywheel, and Vanillin artifacts.
+**Status: the Create build matrix targets 26.2; source migration remains gated
+on Flywheel's renderer migration.** The branch uses local composite checkouts
+for the unpublished companion ports and disables optional integrations for the
+initial core compiler baseline. Do not treat that development-only setup as a
+publishable dependency matrix.
 
 The target is Minecraft Java **26.2**, the latest stable Minecraft release at
 research time (2026-09-17), with NeoForge **26.2.0.88** selected initially from
@@ -180,6 +180,19 @@ integrations are explicitly disabled only for the development environment.
 | Optional development mods hide core errors. | Establish a minimal required runtime first, then re-enable integrations individually. |
 | Datagen causes broad opaque diffs. | Run it only after generator compilation and review output separately. |
 | Minecraft releases 26.3 during the effort. | Keep 26.2 as the frozen branch target; open a separate decision/ticket for 26.3 rather than retargeting mid-port. |
+
+## Current implementation state
+
+Create now uses Minecraft 26.2, NeoForge 26.2.0.88, Java 25, Gradle 9.5.1, and
+ModDevGradle 2.0.147. Its game artifacts rebuild successfully. `pack.mcmeta`
+declares the 26.2 resource/data format ranges. The local Ponder/Flywheel/
+Registrate composites resolve, including the special included-build case that
+configures Ponder's NeoForge projects without eagerly resolving its unrelated
+Fabric runtime dependencies.
+
+The first core `compileJava` baseline is waiting on the companion source
+builds, rather than on Maven resolution: Ponder has its remaining 26.2 source
+errors and Flywheel is replacing its removed OpenGL renderer backend.
 
 ## Immediate next action
 

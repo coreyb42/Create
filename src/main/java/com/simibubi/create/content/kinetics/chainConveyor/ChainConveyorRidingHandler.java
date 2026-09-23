@@ -6,7 +6,8 @@ import com.simibubi.create.foundation.utility.ServerSpeedProvider;
 
 import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.math.VecHelper;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
@@ -102,12 +103,12 @@ public class ChainConveyorRidingHandler {
 			.scale(0.75)
 			.add(diff.scale(0.25)));
 		if (AnimationTickHolder.getTicks() % 10 == 0)
-			CatnipServices.NETWORK.sendToServer(new ServerboundChainConveyorRidingPacket(ridingChainConveyor, false));
+			NetworkHelper.INSTANCE.sendToServer(new ServerboundChainConveyorRidingPacket(ridingChainConveyor, false));
 	}
 
 	private static void stopRiding() {
 		if (ridingChainConveyor != null)
-			CatnipServices.NETWORK.sendToServer(new ServerboundChainConveyorRidingPacket(ridingChainConveyor, true));
+			NetworkHelper.INSTANCE.sendToServer(new ServerboundChainConveyorRidingPacket(ridingChainConveyor, true));
 		ridingChainConveyor = null;
 		ridingConnection = null;
 		Minecraft.getInstance()

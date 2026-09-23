@@ -53,7 +53,8 @@ import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.data.Pair;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -804,7 +805,7 @@ public class Train {
 		}
 
 		Create.RAILWAYS.removeTrain(id);
-		CatnipServices.NETWORK.sendToAllClients(new RemoveTrainPacket(this));
+		NetworkHelper.INSTANCE.sendToAllClients(new RemoveTrainPacket(this));
 		return true;
 	}
 

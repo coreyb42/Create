@@ -22,7 +22,8 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import dev.engine_room.flywheel.lib.visualization.VisualizationHelper;
 import net.createmod.catnip.api.data.Pair;
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.HolderLookup;
@@ -156,7 +157,7 @@ public class TrackBlockEntity extends SmartBlockEntity implements TransformableB
 		if (blockState.hasProperty(TrackBlock.HAS_BE))
 			level.setBlockAndUpdate(worldPosition, blockState.setValue(TrackBlock.HAS_BE, false));
 		if (level instanceof ServerLevel serverLevel)
-			CatnipServices.NETWORK.sendToClientsTrackingChunk(serverLevel, new ChunkPos(worldPosition), new RemoveBlockEntityPacket(worldPosition));
+			NetworkHelper.INSTANCE.sendToClientsTrackingChunk(serverLevel, new ChunkPos(worldPosition), new RemoveBlockEntityPacket(worldPosition));
 	}
 
 	public void removeInboundConnections(boolean dropAndDiscard) {
@@ -171,7 +172,7 @@ public class TrackBlockEntity extends SmartBlockEntity implements TransformableB
 			bezierConnection.spawnDestroyParticles(level);
 		}
 		if (dropAndDiscard && level instanceof ServerLevel serverLevel)
-			CatnipServices.NETWORK.sendToClientsTrackingChunk(serverLevel, new ChunkPos(worldPosition), new RemoveBlockEntityPacket(worldPosition));
+			NetworkHelper.INSTANCE.sendToClientsTrackingChunk(serverLevel, new ChunkPos(worldPosition), new RemoveBlockEntityPacket(worldPosition));
 	}
 
 	public void bind(ResourceKey<Level> boundDimension, BlockPos boundLocation) {
@@ -229,7 +230,7 @@ public class TrackBlockEntity extends SmartBlockEntity implements TransformableB
 			level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 16);
 		}
 
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> VisualizationHelper.queueUpdate(this));
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> VisualizationHelper.queueUpdate(this));
 
 		if (hasInteractableConnections())
 			registerToCurveInteraction();
@@ -338,11 +339,11 @@ public class TrackBlockEntity extends SmartBlockEntity implements TransformableB
 	}
 
 	private void registerToCurveInteraction() {
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> this::registerToCurveInteractionUnsafe);
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> this::registerToCurveInteractionUnsafe);
 	}
 
 	private void removeFromCurveInteraction() {
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> this::removeFromCurveInteractionUnsafe);
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> this::removeFromCurveInteractionUnsafe);
 	}
 
 	@Override

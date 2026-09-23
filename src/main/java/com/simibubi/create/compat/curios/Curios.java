@@ -11,7 +11,8 @@ import com.simibubi.create.AllTags;
 import com.simibubi.create.content.equipment.armor.BacktankUtil;
 import com.simibubi.create.content.equipment.goggles.GogglesItem;
 
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosCapability;
@@ -70,7 +71,7 @@ public class Curios {
 				return stacks;
 			}).orElse(Collections.emptyList()));
 
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> modEventBus.addListener(CuriosRenderers::onLayerRegister));
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> modEventBus.addListener(CuriosRenderers::onLayerRegister));
 	}
 
 	private static void onClientSetup(final FMLClientSetupEvent event) {

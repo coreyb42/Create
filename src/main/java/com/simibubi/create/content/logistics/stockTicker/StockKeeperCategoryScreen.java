@@ -24,7 +24,8 @@ import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.animation.LerpedFloat;
 import net.createmod.catnip.api.animation.LerpedFloat.Chaser;
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -105,7 +106,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 		editingIndex = index;
 		editingItem = index == -1 ? ItemStack.EMPTY : schedule.get(index);
 		menu.proxyInventory.setStackInSlot(0, editingItem);
-		CatnipServices.NETWORK.sendToServer(new GhostItemSubmitPacket(editingItem, 0));
+		NetworkHelper.INSTANCE.sendToServer(new GhostItemSubmitPacket(editingItem, 0));
 
 		addRenderableWidget(editorConfirm);
 		addRenderableWidget(editorEditBox);
@@ -136,7 +137,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 				schedule.set(editingIndex, stackInSlot);
 		}
 
-		CatnipServices.NETWORK.sendToServer(new GhostItemSubmitPacket(ItemStack.EMPTY, 0));
+		NetworkHelper.INSTANCE.sendToServer(new GhostItemSubmitPacket(ItemStack.EMPTY, 0));
 
 		editingItem = null;
 		editorConfirm = null;
@@ -293,7 +294,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 					.component()), mx, my);
 				if (click == 0) {
 					if (!entry.isEmpty())
-						CatnipServices.NETWORK.sendToServer(new StockKeeperCategoryRefundPacket(menu.contentHolder.getBlockPos(), entry));
+						NetworkHelper.INSTANCE.sendToServer(new StockKeeperCategoryRefundPacket(menu.contentHolder.getBlockPos(), entry));
 					entries.remove(entry);
 					init();
 				}
@@ -498,7 +499,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 	@Override
 	public void removed() {
 		super.removed();
-		CatnipServices.NETWORK.sendToServer(new StockKeeperCategoryEditPacket(menu.contentHolder.getBlockPos(), schedule));
+		NetworkHelper.INSTANCE.sendToServer(new StockKeeperCategoryEditPacket(menu.contentHolder.getBlockPos(), schedule));
 	}
 
 	@Override

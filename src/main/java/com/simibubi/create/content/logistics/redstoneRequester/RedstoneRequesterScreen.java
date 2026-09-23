@@ -17,7 +17,8 @@ import com.simibubi.create.foundation.gui.widget.ScrollInput;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.Rect2i;
@@ -225,7 +226,7 @@ public class RedstoneRequesterScreen extends AbstractSimiContainerScreen<Redston
 
 	@Override
 	public void removed() {
-		CatnipServices.NETWORK.sendToServer(new RedstoneRequesterConfigurationPacket(menu.contentHolder.getBlockPos(),
+		NetworkHelper.INSTANCE.sendToServer(new RedstoneRequesterConfigurationPacket(menu.contentHolder.getBlockPos(),
 				addressBox.getValue(), allowPartial.green, amounts));
 		super.removed();
 	}

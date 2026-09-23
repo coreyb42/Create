@@ -38,7 +38,8 @@ import com.simibubi.create.foundation.mixin.accessor.ServerLevelAccessor;
 import io.netty.handler.codec.DecoderException;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.createmod.catnip.api.math.VecHelper;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -162,7 +163,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 		contraption.getSeatMapping()
 			.put(passenger.getUUID(), seatIndex);
 
-		CatnipServices.NETWORK.sendToClientsTrackingEntity(this, new ContraptionSeatMappingPacket(getId(), contraption.getSeatMapping()));
+		NetworkHelper.INSTANCE.sendToClientsTrackingEntity(this, new ContraptionSeatMappingPacket(getId(), contraption.getSeatMapping()));
 	}
 
 	@Override
@@ -179,7 +180,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 		contraption.getSeatMapping()
 			.remove(passenger.getUUID());
 
-		CatnipServices.NETWORK.sendToClientsTrackingEntity(this,
+		NetworkHelper.INSTANCE.sendToClientsTrackingEntity(this,
 				new ContraptionSeatMappingPacket(getId(), contraption.getSeatMapping(), passenger.getId()));
 	}
 
@@ -280,7 +281,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 	public void stopControlling(BlockPos controlsLocalPos) {
 		getControllingPlayer().map(level()::getPlayerByUUID)
 			.map(p -> (p instanceof ServerPlayer) ? ((ServerPlayer) p) : null)
-			.ifPresent(p -> CatnipServices.NETWORK.sendToClient(p, ControlsStopControllingPacket.INSTANCE));
+			.ifPresent(p -> NetworkHelper.INSTANCE.sendToClient(p, ControlsStopControllingPacket.INSTANCE));
 		setControllingPlayer(null);
 	}
 
@@ -426,7 +427,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 
 	public void setBlock(BlockPos localPos, StructureBlockInfo newInfo) {
 		contraption.blocks.put(localPos, newInfo);
-		CatnipServices.NETWORK.sendToClientsTrackingEntity(this, new ContraptionBlockChangedPacket(getId(), localPos, newInfo.state()));
+		NetworkHelper.INSTANCE.sendToClientsTrackingEntity(this, new ContraptionBlockChangedPacket(getId(), localPos, newInfo.state()));
 	}
 
 	protected abstract void tickContraption();
@@ -520,7 +521,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 	}
 
 	protected void onContraptionStalled() {
-		CatnipServices.NETWORK.sendToClientsTrackingEntity(this, new ContraptionStallPacket(getId(), getX(), getY(), getZ(), getStalledAngle()));
+		NetworkHelper.INSTANCE.sendToClientsTrackingEntity(this, new ContraptionStallPacket(getId(), getX(), getY(), getZ(), getStalledAngle()));
 	}
 
 	protected boolean shouldActorTrigger(MovementContext context, StructureBlockInfo blockInfo, MovementBehaviour actor,
@@ -662,7 +663,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 		StructureTransform transform = makeStructureTransform();
 
 		contraption.stop(level());
-		CatnipServices.NETWORK.sendToClientsTrackingEntity(this, new ContraptionDisassemblyPacket(this.getId(), transform));
+		NetworkHelper.INSTANCE.sendToClientsTrackingEntity(this, new ContraptionDisassemblyPacket(this.getId(), transform));
 
 		contraption.addBlocksToWorld(level(), transform);
 		contraption.addPassengersToWorld(level(), transform, getPassengers());

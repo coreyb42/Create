@@ -10,7 +10,8 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.utility.ControlsUtil;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.createmod.catnip.api.animation.LerpedFloat;
 import net.createmod.catnip.api.animation.LerpedFloat.Chaser;
 import net.createmod.catnip.api.math.AngleHelper;
@@ -75,14 +76,14 @@ public class TrainHUD {
 		if (isSprintKeyPressed && honkPacketCooldown-- <= 0) {
 			train.determineHonk(mc.level);
 			if (train.lowHonk != null) {
-				CatnipServices.NETWORK.sendToServer(new HonkPacket.Serverbound(train, true));
+				NetworkHelper.INSTANCE.sendToServer(new HonkPacket.Serverbound(train, true));
 				honkPacketCooldown = 5;
 				usedToHonk = true;
 			}
 		}
 
 		if (!isSprintKeyPressed && usedToHonk) {
-			CatnipServices.NETWORK.sendToServer(new HonkPacket.Serverbound(train, false));
+			NetworkHelper.INSTANCE.sendToServer(new HonkPacket.Serverbound(train, false));
 			honkPacketCooldown = 0;
 			usedToHonk = false;
 		}
@@ -96,7 +97,7 @@ public class TrainHUD {
 		}
 
 		if (hudPacketCooldown-- <= 0) {
-			CatnipServices.NETWORK.sendToServer(new TrainHUDUpdatePacket.Serverbound(train, editedThrottle));
+			NetworkHelper.INSTANCE.sendToServer(new TrainHUDUpdatePacket.Serverbound(train, editedThrottle));
 			hudPacketCooldown = 5;
 		}
 	}

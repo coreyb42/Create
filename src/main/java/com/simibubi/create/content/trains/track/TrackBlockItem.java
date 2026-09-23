@@ -8,7 +8,8 @@ import com.simibubi.create.content.trains.track.TrackPlacement.PlacementInfo;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.data.Pair;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -174,7 +175,7 @@ public class TrackBlockItem extends BlockItem {
 		if (!AllTags.AllBlockTags.TRACKS.matches(stack))
 			return;
 		if (Minecraft.getInstance().options.keySprint.isDown())
-			CatnipServices.NETWORK.sendToServer(new PlaceExtendedCurvePacket(event.getHand() == InteractionHand.MAIN_HAND, true));
+			NetworkHelper.INSTANCE.sendToServer(new PlaceExtendedCurvePacket(event.getHand() == InteractionHand.MAIN_HAND, true));
 	}
 
 	@Override

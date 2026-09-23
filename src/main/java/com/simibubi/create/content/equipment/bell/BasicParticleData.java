@@ -8,7 +8,8 @@ import com.mojang.serialization.MapCodec;
 import com.simibubi.create.foundation.particle.AirParticleData;
 import com.simibubi.create.foundation.particle.ICustomParticleDataWithSprite;
 
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;

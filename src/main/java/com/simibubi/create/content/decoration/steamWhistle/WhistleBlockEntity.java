@@ -15,7 +15,8 @@ import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.CreateLang;
 
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.createmod.catnip.api.animation.LerpedFloat;
 import net.createmod.catnip.api.animation.LerpedFloat.Chaser;
 import net.createmod.catnip.api.math.AngleHelper;
@@ -92,7 +93,7 @@ public class WhistleBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 			|| isVirtual());
 		animation.chase(powered ? 1 : 0, powered ? .5f : .4f, powered ? Chaser.EXP : Chaser.LINEAR);
 		animation.tickChaser();
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> this.tickAudio(getOctave(), powered));
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> this.tickAudio(getOctave(), powered));
 	}
 
 	@Override

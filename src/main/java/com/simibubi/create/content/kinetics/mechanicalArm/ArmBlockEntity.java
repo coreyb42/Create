@@ -29,7 +29,8 @@ import net.createmod.catnip.api.lang.Lang;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -557,7 +558,7 @@ public class ArmBlockEntity extends KineticBlockEntity implements TransformableB
 		if (!clientPacket)
 			return;
 
-		if (hadGoggles != goggles && CatnipServices.PLATFORM.getEnv().isClient())
+		if (hadGoggles != goggles && PlatformHelper.INSTANCE.getEnv().isClient())
 			Client.queueUpdate(this);
 
 		boolean ceiling = isOnCeiling();

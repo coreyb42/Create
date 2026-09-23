@@ -3,7 +3,8 @@ package com.simibubi.create.content.trains.track;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.trains.track.TrackBlockOutline.BezierPointSelection;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.math.VecHelper;
@@ -73,7 +74,7 @@ public class CurvedTrackInteraction {
 			player.swing(InteractionHand.MAIN_HAND);
 
 			if (breakProgress >= 1) {
-				CatnipServices.NETWORK.sendToServer(new CurvedTrackDestroyPacket(breakPos, result.loc()
+				NetworkHelper.INSTANCE.sendToServer(new CurvedTrackDestroyPacket(breakPos, result.loc()
 					.curveTarget(), BlockPos.containing(result.vec()), false));
 				resetBreakProgress();
 			}
@@ -127,7 +128,7 @@ public class CurvedTrackInteraction {
 				return true;
 			}
 			if (AllItems.WRENCH.isIn(heldItem) && player.isShiftKeyDown()) {
-				CatnipServices.NETWORK.sendToServer(new CurvedTrackDestroyPacket(result.blockEntity()
+				NetworkHelper.INSTANCE.sendToServer(new CurvedTrackDestroyPacket(result.blockEntity()
 						.getBlockPos(),
 						result.loc()
 							.curveTarget(),

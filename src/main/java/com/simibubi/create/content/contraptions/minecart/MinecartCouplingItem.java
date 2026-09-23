@@ -5,7 +5,8 @@ import com.simibubi.create.AllItems;
 import com.simibubi.create.content.contraptions.minecart.capability.MinecartController;
 
 import net.createmod.catnip.api.data.Iterate;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -65,7 +66,7 @@ public class MinecartCouplingItem extends Item {
 			return true;
 		}
 		if (world != null && world.isClientSide)
-			CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> cartClicked(player, minecart));
+			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> cartClicked(player, minecart));
 		return true;
 	}
 

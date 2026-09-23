@@ -77,7 +77,8 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.client.config.BaseConfigScreen;
 import net.createmod.catnip.api.client.level.wrapper.WrappedClientLevel;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.createmod.catnip.api.client.render.DefaultSuperRenderTypeBuffer;
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 import net.minecraft.client.Camera;
@@ -351,7 +352,7 @@ public class ClientEvents {
 	public static void leftClickEmpty(PlayerInteractEvent.LeftClickEmpty event) {
 		ItemStack stack = event.getItemStack();
 		if (stack.getItem() instanceof ZapperItem) {
-			CatnipServices.NETWORK.sendToServer(LeftClickPacket.INSTANCE);
+			NetworkHelper.INSTANCE.sendToServer(LeftClickPacket.INSTANCE);
 		}
 	}
 

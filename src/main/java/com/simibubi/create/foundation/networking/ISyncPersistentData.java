@@ -5,7 +5,8 @@ import java.util.HashSet;
 import com.simibubi.create.AllPackets;
 
 import net.createmod.catnip.net.base.ClientboundPacketPayload;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -20,7 +21,7 @@ public interface ISyncPersistentData {
 	void onPersistentDataUpdated();
 
 	default void syncPersistentDataWithTracking(Entity self) {
-		CatnipServices.NETWORK.sendToClientsTrackingEntity(self, new PersistentDataPacket(self));
+		NetworkHelper.INSTANCE.sendToClientsTrackingEntity(self, new PersistentDataPacket(self));
 	}
 
 	record PersistentDataPacket(int entityId, CompoundTag readData) implements ClientboundPacketPayload {

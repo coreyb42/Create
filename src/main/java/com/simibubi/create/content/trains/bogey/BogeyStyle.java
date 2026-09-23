@@ -15,7 +15,8 @@ import com.simibubi.create.content.trains.bogey.BogeySizes.BogeySize;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -53,7 +54,7 @@ public class BogeyStyle {
 		this.defaultData = defaultData;
 		this.sizes = sizes;
 
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> {
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> {
 			this.sizeRenderers = new HashMap<>();
 			sizeRenderers.forEach((k, v) -> this.sizeRenderers.put(k, v.get()
 				.get()));
@@ -155,7 +156,7 @@ public class BogeyStyle {
 		public Builder size(BogeySizes.BogeySize size, Supplier<? extends AbstractBogeyBlock<?>> block,
 			 Supplier<Supplier<? extends SizeRenderer>> renderer) {
 			this.sizes.put(size, block);
-			CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> {
+			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> {
 				this.sizeRenderers.put(size, renderer);
 			});
 			return this;

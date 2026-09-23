@@ -66,7 +66,8 @@ import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.data.WorldAttached;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
@@ -891,7 +892,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 
 		train.collectInitiallyOccupiedSignalBlocks();
 		Create.RAILWAYS.addTrain(train);
-		CatnipServices.NETWORK.sendToAllClients(new AddTrainPacket(train));
+		NetworkHelper.INSTANCE.sendToAllClients(new AddTrainPacket(train));
 		clearException();
 
 		award(AllAdvancements.TRAIN);

@@ -33,7 +33,8 @@ import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.data.Pair;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -815,7 +816,7 @@ public class Carriage {
 			cc.portalCutoffMax = maxAllowedLocalCoord();
 			if (!entity.level().isClientSide())
 				return;
-			CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> invalidate(cce));
+			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> invalidate(cce));
 		}
 
 		@OnlyIn(Dist.CLIENT)

@@ -22,7 +22,8 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 
 import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.client.gui.ScreenOpener;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -71,7 +72,7 @@ public class SymmetryWandItem extends Item {
 		// Shift -> open GUI
 		if (player.isShiftKeyDown()) {
 			if (player.level().isClientSide) {
-				CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> {
+				PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> {
 					openWandGUI(wand, context.getHand());
 				});
 				player.getCooldowns()
@@ -133,7 +134,7 @@ public class SymmetryWandItem extends Item {
 		// Shift -> Open GUI
 		if (playerIn.isShiftKeyDown()) {
 			if (worldIn.isClientSide) {
-				CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> {
+				PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> {
 					openWandGUI(playerIn.getItemInHand(handIn), handIn);
 				});
 				playerIn.getCooldowns()
@@ -248,7 +249,7 @@ public class SymmetryWandItem extends Item {
 			}
 		}
 
-		CatnipServices.NETWORK.sendToClientsTrackingAndSelf(player, new SymmetryEffectPacket(to, targets));
+		NetworkHelper.INSTANCE.sendToClientsTrackingAndSelf(player, new SymmetryEffectPacket(to, targets));
 	}
 
 	private static boolean isHoldingBlock(Player player, BlockState block) {
@@ -301,7 +302,7 @@ public class SymmetryWandItem extends Item {
 			}
 		}
 
-		CatnipServices.NETWORK.sendToClientsTrackingAndSelf(player, new SymmetryEffectPacket(to, targets));
+		NetworkHelper.INSTANCE.sendToClientsTrackingAndSelf(player, new SymmetryEffectPacket(to, targets));
 	}
 
 	public static boolean presentInHotbar(Player player) {

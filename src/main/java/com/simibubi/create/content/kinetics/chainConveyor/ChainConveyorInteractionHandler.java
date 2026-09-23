@@ -16,7 +16,8 @@ import com.simibubi.create.foundation.utility.TickBasedCache;
 
 import net.createmod.catnip.api.data.WorldAttached;
 import net.createmod.catnip.api.client.outliner.Outliner;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -134,7 +135,7 @@ public class ChainConveyorInteractionHandler {
 				return true;
 			}
 
-			CatnipServices.NETWORK.sendToServer(new ChainConveyorConnectionPacket(selectedLift, selectedLift.offset(selectedConnection),
+			NetworkHelper.INSTANCE.sendToServer(new ChainConveyorConnectionPacket(selectedLift, selectedLift.offset(selectedConnection),
 				usedItem, false));
 			return true;
 		}
@@ -147,7 +148,7 @@ public class ChainConveyorInteractionHandler {
 		}
 
 		if (PackageItem.isPackage(mainHandItem)) {
-			CatnipServices.NETWORK.sendToServer(new ChainPackageInteractionPacket(selectedLift, selectedConnection, selectedChainPosition,
+			NetworkHelper.INSTANCE.sendToServer(new ChainPackageInteractionPacket(selectedLift, selectedConnection, selectedChainPosition,
 				false));
 			return true;
 		}

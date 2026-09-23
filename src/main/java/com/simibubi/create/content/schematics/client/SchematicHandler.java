@@ -22,7 +22,8 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.level.wrapper.SchematicLevel;
 import net.createmod.catnip.api.client.outliner.AABBOutline;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -344,7 +345,7 @@ public class SchematicHandler implements LayeredDraw.Layer {
 	public void sync() {
 		if (activeSchematicItem == null)
 			return;
-		CatnipServices.NETWORK.sendToServer(new SchematicSyncPacket(activeHotbarSlot, transformation.toSettings(),
+		NetworkHelper.INSTANCE.sendToServer(new SchematicSyncPacket(activeHotbarSlot, transformation.toSettings(),
 			transformation.getAnchor(), deployed));
 	}
 
@@ -386,7 +387,7 @@ public class SchematicHandler implements LayeredDraw.Layer {
 	}
 
 	public void printInstantly() {
-		CatnipServices.NETWORK.sendToServer(new SchematicPlacePacket(activeSchematicItem.copy()));
+		NetworkHelper.INSTANCE.sendToServer(new SchematicPlacePacket(activeSchematicItem.copy()));
 		activeSchematicItem.set(AllDataComponents.SCHEMATIC_DEPLOYED, false);
 		SchematicInstances.clearHash(activeSchematicItem);
 		active = false;

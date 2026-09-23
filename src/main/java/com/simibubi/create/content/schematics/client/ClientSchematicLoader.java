@@ -23,7 +23,8 @@ import com.simibubi.create.foundation.utility.CreatePaths;
 import com.simibubi.create.foundation.utility.FilesHelper;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
@@ -84,7 +85,7 @@ public class ClientSchematicLoader {
 
 			in = Files.newInputStream(path, StandardOpenOption.READ);
 			activeUploads.put(schematic, in);
-			CatnipServices.NETWORK.sendToServer(SchematicUploadPacket.begin(schematic, size));
+			NetworkHelper.INSTANCE.sendToServer(SchematicUploadPacket.begin(schematic, size));
 		} catch (IOException e) {
 			Create.LOGGER.error("Encountered an error while starting schematic upload", e);
 		}
@@ -135,7 +136,7 @@ public class ClientSchematicLoader {
 					if (status < maxPacketSize)
 						data = Arrays.copyOf(data, status);
 					if (Minecraft.getInstance().level != null)
-						CatnipServices.NETWORK.sendToServer(SchematicUploadPacket.write(schematic, data));
+						NetworkHelper.INSTANCE.sendToServer(SchematicUploadPacket.write(schematic, data));
 					else {
 						//noinspection resource
 						activeUploads.remove(schematic);
@@ -153,7 +154,7 @@ public class ClientSchematicLoader {
 
 	private void finishUpload(String schematic) {
 		if (activeUploads.containsKey(schematic)) {
-			CatnipServices.NETWORK.sendToServer(SchematicUploadPacket.finish(schematic));
+			NetworkHelper.INSTANCE.sendToServer(SchematicUploadPacket.finish(schematic));
 			//noinspection resource
 			activeUploads.remove(schematic);
 		}

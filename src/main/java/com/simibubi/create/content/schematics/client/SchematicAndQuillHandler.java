@@ -20,7 +20,8 @@ import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.client.gui.ScreenOpener;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.client.outliner.Outliner;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -226,7 +227,7 @@ public class SchematicAndQuillHandler {
 		try {
 			if (!ClientSchematicLoader.validateSizeLimitation(Files.size(file)))
 				return;
-			CatnipServices.NETWORK.sendToServer(new InstantSchematicPacket(result.fileName(), result.origin(), result.bounds()));
+			NetworkHelper.INSTANCE.sendToServer(new InstantSchematicPacket(result.fileName(), result.origin(), result.bounds()));
 		} catch (IOException e) {
 			Create.LOGGER.error("Error instantly uploading Schematic file: " + file, e);
 		}

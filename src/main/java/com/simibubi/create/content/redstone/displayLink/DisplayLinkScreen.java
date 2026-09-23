@@ -17,7 +17,8 @@ import com.simibubi.create.foundation.gui.widget.IconButton;
 import com.simibubi.create.foundation.gui.widget.Label;
 import com.simibubi.create.foundation.gui.widget.ScrollInput;
 import com.simibubi.create.foundation.gui.widget.SelectionScrollInput;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.infrastructure.ponder.AllCreatePonderTags;
 
@@ -250,7 +251,7 @@ public class DisplayLinkScreen extends AbstractSimiScreen {
 			configWidgets.forEach(s -> s.saveValues(sourceData));
 		}
 
-		CatnipServices.NETWORK.sendToServer(new DisplayLinkConfigurationPacket(blockEntity.getBlockPos(), sourceData,
+		NetworkHelper.INSTANCE.sendToServer(new DisplayLinkConfigurationPacket(blockEntity.getBlockPos(), sourceData,
 			targetLineSelector == null ? 0 : targetLineSelector.getState()));
 	}
 

@@ -18,7 +18,8 @@ import com.simibubi.create.foundation.gui.widget.IconButton;
 import com.simibubi.create.foundation.gui.widget.Indicator;
 import com.simibubi.create.foundation.gui.widget.Indicator.State;
 import com.simibubi.create.foundation.item.TooltipHelper;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
@@ -415,7 +416,7 @@ public class SchematicannonScreen extends AbstractSimiContainerScreen<Schematica
 	}
 
 	protected void sendOptionUpdate(Option option, boolean set) {
-		CatnipServices.NETWORK.sendToServer(new ConfigureSchematicannonPacket(option, set));
+		NetworkHelper.INSTANCE.sendToServer(new ConfigureSchematicannonPacket(option, set));
 	}
 
 	@Override

@@ -1,7 +1,8 @@
 package com.simibubi.create.content.contraptions.sync;
 
 import com.simibubi.create.AllPackets;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.createmod.catnip.net.base.ServerboundPacketPayload;
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecs;
 import io.netty.buffer.ByteBuf;
@@ -35,7 +36,7 @@ public record ClientMotionPacket(Vec3 motion, boolean onGround, float limbSwing)
 			sender.connection.aboveGroundTickCount = 0;
 			sender.connection.aboveGroundVehicleTickCount = 0;
 		}
-		CatnipServices.NETWORK.sendToClientsTrackingEntity(sender,
+		NetworkHelper.INSTANCE.sendToClientsTrackingEntity(sender,
 				new LimbSwingUpdatePacket(sender.getId(), sender.position(), limbSwing));
 	}
 }

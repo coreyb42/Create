@@ -2,7 +2,8 @@ package com.simibubi.create.foundation.utility;
 
 import com.simibubi.create.AllPackets;
 import net.createmod.catnip.net.base.ClientboundPacketPayload;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
 import net.createmod.catnip.api.animation.LerpedFloat;
@@ -24,7 +25,7 @@ public class ServerSpeedProvider {
 	public static void serverTick() {
 		serverTimer++;
 		if (serverTimer > getSyncInterval()) {
-			CatnipServices.NETWORK.sendToAllClients(Packet.INSTANCE);
+			NetworkHelper.INSTANCE.sendToAllClients(Packet.INSTANCE);
 			serverTimer = 0;
 		}
 	}

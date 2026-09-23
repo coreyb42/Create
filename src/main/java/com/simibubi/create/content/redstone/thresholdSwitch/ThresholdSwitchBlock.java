@@ -6,7 +6,8 @@ import com.simibubi.create.content.redstone.DirectedDirectionalBlock;
 import com.simibubi.create.foundation.block.IBE;
 
 import net.createmod.catnip.api.client.gui.ScreenOpener;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -84,7 +85,7 @@ public class ThresholdSwitchBlock extends DirectedDirectionalBlock implements IB
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (player != null && AllItems.WRENCH.isIn(stack))
 			return InteractionResult.PASS;
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> withBlockEntityDo(level, pos, be -> this.displayScreen(be, player)));
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> withBlockEntityDo(level, pos, be -> this.displayScreen(be, player)));
 		return InteractionResult.SUCCESS;
 	}
 

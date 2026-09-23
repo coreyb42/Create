@@ -18,7 +18,8 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollOptionBehaviour;
 import com.simibubi.create.foundation.utility.CreateLang;
 
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.minecraft.core.BlockPos;
@@ -131,7 +132,7 @@ public class SteamEngineBlockEntity extends SmartBlockEntity implements IHaveGog
 		if (!level.isClientSide)
 			return;
 
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> this::spawnParticles);
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> this::spawnParticles);
 	}
 
 	@Override

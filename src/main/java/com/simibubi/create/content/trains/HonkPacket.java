@@ -11,7 +11,8 @@ import com.simibubi.create.foundation.advancement.AllAdvancements;
 import io.netty.buffer.ByteBuf;
 import net.createmod.catnip.net.base.ClientboundPacketPayload;
 import net.createmod.catnip.net.base.ServerboundPacketPayload;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -88,7 +89,7 @@ public abstract class HonkPacket implements CustomPacketPayload {
 				return;
 
 			AllAdvancements.TRAIN_WHISTLE.awardTo(player);
-			CatnipServices.NETWORK.sendToAllClients(new HonkPacket.Clientbound(train, isHonk));
+			NetworkHelper.INSTANCE.sendToAllClients(new HonkPacket.Clientbound(train, isHonk));
 			
 			Entity entity = train.carriages.get(0).anyAvailableEntity();
 			if (entity == null) entity = player;

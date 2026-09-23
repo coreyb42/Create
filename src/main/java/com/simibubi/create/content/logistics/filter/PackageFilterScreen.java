@@ -10,7 +10,8 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.widget.IconButton;
 
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -68,7 +69,7 @@ public class PackageFilterScreen extends AbstractFilterScreen<PackageFilterMenu>
 		menu.address = s;
 		CompoundTag tag = new CompoundTag();
 		tag.putString("Address", s);
-		CatnipServices.NETWORK.sendToServer(new FilterScreenPacket(Option.UPDATE_ADDRESS, tag));
+		NetworkHelper.INSTANCE.sendToServer(new FilterScreenPacket(Option.UPDATE_ADDRESS, tag));
 	}
 
 	@Override

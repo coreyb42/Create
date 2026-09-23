@@ -6,7 +6,8 @@ import org.apache.commons.lang3.mutable.MutableBoolean;
 
 import com.simibubi.create.foundation.utility.RaycastHelper;
 
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -44,7 +45,7 @@ public class ChainPackageInteractionHandler {
 
 				for (ChainConveyorPackage pckg : ccbe.getLoopingPackages()) {
 					if (pckg.netId == i) {
-						CatnipServices.NETWORK.sendToServer(
+						NetworkHelper.INSTANCE.sendToServer(
 								new ChainPackageInteractionPacket(ccbe.getBlockPos(), null, pckg.chainPosition, true));
 						success.setTrue();
 						return;
@@ -57,7 +58,7 @@ public class ChainPackageInteractionHandler {
 						continue;
 					for (ChainConveyorPackage pckg : list) {
 						if (pckg.netId == i) {
-							CatnipServices.NETWORK.sendToServer(new ChainPackageInteractionPacket(ccbe.getBlockPos(), connection,
+							NetworkHelper.INSTANCE.sendToServer(new ChainPackageInteractionPacket(ccbe.getBlockPos(), connection,
 									pckg.chainPosition, true));
 							success.setTrue();
 							return;

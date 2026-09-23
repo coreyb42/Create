@@ -14,7 +14,8 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllKeys;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.AllIcons;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import dev.engine_room.flywheel.lib.transform.TransformStack;
@@ -236,9 +237,9 @@ public class RadialToolboxMenu extends AbstractSimiScreen {
 			if (state == State.DETACH)
 				return;
 			else if (state == State.SELECT_BOX)
-				toolboxes.forEach(be -> CatnipServices.NETWORK.sendToServer(new ToolboxDisposeAllPacket(be.getBlockPos())));
+				toolboxes.forEach(be -> NetworkHelper.INSTANCE.sendToServer(new ToolboxDisposeAllPacket(be.getBlockPos())));
 			else
-				CatnipServices.NETWORK.sendToServer(new ToolboxDisposeAllPacket(selectedBox.getBlockPos()));
+				NetworkHelper.INSTANCE.sendToServer(new ToolboxDisposeAllPacket(selectedBox.getBlockPos()));
 			return;
 		}
 
@@ -247,13 +248,13 @@ public class RadialToolboxMenu extends AbstractSimiScreen {
 
 		if (state == State.DETACH) {
 			if (selected == UNEQUIP)
-				CatnipServices.NETWORK.sendToServer(
+				NetworkHelper.INSTANCE.sendToServer(
 					new ToolboxEquipPacket(null, selected, minecraft.player.getInventory().selected));
 			return;
 		}
 
 		if (selected == UNEQUIP)
-			CatnipServices.NETWORK.sendToServer(new ToolboxEquipPacket(selectedBox.getBlockPos(), selected,
+			NetworkHelper.INSTANCE.sendToServer(new ToolboxEquipPacket(selectedBox.getBlockPos(), selected,
 				minecraft.player.getInventory().selected));
 
 		if (selected < 0)
@@ -266,7 +267,7 @@ public class RadialToolboxMenu extends AbstractSimiScreen {
 			.isEmpty())
 			return;
 
-		CatnipServices.NETWORK.sendToServer(new ToolboxEquipPacket(selectedBox.getBlockPos(), selected,
+		NetworkHelper.INSTANCE.sendToServer(new ToolboxEquipPacket(selectedBox.getBlockPos(), selected,
 			minecraft.player.getInventory().selected));
 	}
 
@@ -339,7 +340,7 @@ public class RadialToolboxMenu extends AbstractSimiScreen {
 
 			if (state == State.SELECT_ITEM_UNEQUIP && selected == UNEQUIP) {
 				if (toolboxes.size() > 1) {
-					CatnipServices.NETWORK.sendToServer(new ToolboxEquipPacket(selectedBox.getBlockPos(), selected,
+					NetworkHelper.INSTANCE.sendToServer(new ToolboxEquipPacket(selectedBox.getBlockPos(), selected,
 						minecraft.player.getInventory().selected));
 					state = State.SELECT_BOX;
 					return true;

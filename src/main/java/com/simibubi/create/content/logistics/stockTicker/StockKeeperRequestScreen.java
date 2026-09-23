@@ -56,7 +56,8 @@ import net.createmod.catnip.api.client.gui.UIRenderHelper;
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
 import net.createmod.catnip.api.lang.Lang;
 import net.createmod.catnip.api.math.AngleHelper;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.theme.Color;
 import net.minecraft.ChatFormatting;
@@ -1149,7 +1150,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 			// Lock
 			if (isAdmin && pMouseX > lockX && pMouseX <= lockX + 15) {
 				isLocked = !isLocked;
-				CatnipServices.NETWORK.sendToServer(new StockKeeperLockPacket(blockEntity.getBlockPos(), isLocked));
+				NetworkHelper.INSTANCE.sendToServer(new StockKeeperLockPacket(blockEntity.getBlockPos(), isLocked));
 				playUiSound(SoundEvents.UI_BUTTON_CLICK.value(), 1, 1);
 				return true;
 			}
@@ -1424,9 +1425,9 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 	@Override
 	public void removed() {
 		BlockPos pos = blockEntity.getBlockPos();
-		CatnipServices.NETWORK.sendToServer(
+		NetworkHelper.INSTANCE.sendToServer(
 			new PackageOrderRequestPacket(pos, PackageOrderWithCrafts.empty(), addressBox.getValue(), false));
-		CatnipServices.NETWORK
+		NetworkHelper.INSTANCE
 			.sendToServer(new StockKeeperCategoryHidingPacket(pos, new ArrayList<>(hiddenCategories)));
 		super.removed();
 	}
@@ -1498,7 +1499,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 			order = new PackageOrderWithCrafts(order.orderedStacks(), craftList);
 		}
 
-		CatnipServices.NETWORK.sendToServer(
+		NetworkHelper.INSTANCE.sendToServer(
 			new PackageOrderRequestPacket(blockEntity.getBlockPos(), order, addressBox.getValue(), encodeRequester));
 
 		itemsToOrder = new ArrayList<>();

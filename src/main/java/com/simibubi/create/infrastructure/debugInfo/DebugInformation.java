@@ -22,7 +22,8 @@ import com.simibubi.create.infrastructure.debugInfo.element.InfoEntry;
 import dev.engine_room.flywheel.api.Flywheel;
 import dev.engine_room.flywheel.api.backend.Backend;
 import dev.engine_room.flywheel.api.backend.BackendManager;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.SharedConstants;
 import net.minecraft.SystemReport;
 import net.minecraft.util.Util;
@@ -77,7 +78,7 @@ public class DebugInformation {
 			.put("Minecraft Version", SharedConstants.getCurrentVersion().getName())
 			.buildTo(DebugInformation::registerBothInfo);
 
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> {
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> {
 			DebugInfoSection.builder("Graphics")
 				.put("Flywheel Version", ModList.get()
 					.getModContainerById(Flywheel.ID)

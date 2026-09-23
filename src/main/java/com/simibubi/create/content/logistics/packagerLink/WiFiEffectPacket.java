@@ -5,7 +5,8 @@ import com.simibubi.create.content.logistics.stockTicker.StockTickerBlockEntity;
 
 import io.netty.buffer.ByteBuf;
 import net.createmod.catnip.net.base.ClientboundPacketPayload;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -38,6 +39,6 @@ public record WiFiEffectPacket(BlockPos pos) implements ClientboundPacketPayload
 
 	public static void send(Level level, BlockPos pos) {
 		if (level instanceof ServerLevel serverLevel)
-			CatnipServices.NETWORK.sendToClientsAround(serverLevel, pos, 32, new WiFiEffectPacket(pos));
+			NetworkHelper.INSTANCE.sendToClientsAround(serverLevel, pos, 32, new WiFiEffectPacket(pos));
 	}
 }

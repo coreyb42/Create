@@ -7,7 +7,8 @@ import java.util.stream.Collectors;
 import com.simibubi.create.foundation.networking.ISyncPersistentData.PersistentDataPacket;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.createmod.catnip.api.data.WorldAttached;
 import net.createmod.catnip.api.nbt.NBTHelper;
 import net.minecraft.core.BlockPos;
@@ -95,7 +96,7 @@ public class ToolboxHandler {
 	}
 
 	public static void syncData(Player player) {
-		CatnipServices.NETWORK.sendToClient((ServerPlayer) player,
+		NetworkHelper.INSTANCE.sendToClient((ServerPlayer) player,
 			new PersistentDataPacket(player));
 	}
 

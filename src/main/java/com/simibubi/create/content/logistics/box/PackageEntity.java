@@ -13,7 +13,8 @@ import com.simibubi.create.content.logistics.chute.ChuteBlock;
 
 import net.createmod.catnip.api.math.AngleHelper;
 import net.createmod.catnip.api.math.VecHelper;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.createmod.ponder.api.level.PonderLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -361,7 +362,7 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 	}
 
 	private void destroy(DamageSource source) {
-		CatnipServices.NETWORK.sendToClientsTrackingEntity(this, new PackageDestroyPacket(getBoundingBox().getCenter(), box));
+		NetworkHelper.INSTANCE.sendToClientsTrackingEntity(this, new PackageDestroyPacket(getBoundingBox().getCenter(), box));
 		AllSoundEvents.PACKAGE_POP.playOnServer(level(), blockPosition());
 		if (level() instanceof ServerLevel serverLevel)
 			this.dropAllDeathLoot(serverLevel, source);

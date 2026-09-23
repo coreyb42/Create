@@ -22,7 +22,8 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
 import dev.engine_room.flywheel.lib.transform.TransformStack;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.createmod.catnip.api.data.IntAttached;
 import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.nbt.NBTHelper;
@@ -182,7 +183,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 
 			if (launcher.getHorizontalDistance() * launcher.getHorizontalDistance()
 				+ launcher.getVerticalDistance() * launcher.getVerticalDistance() >= 25 * 25)
-				CatnipServices.NETWORK.sendToServer(new EjectorAwardPacket(worldPosition));
+				NetworkHelper.INSTANCE.sendToServer(new EjectorAwardPacket(worldPosition));
 
 			if (!(playerEntity.getItemBySlot(EquipmentSlot.CHEST)
 				.getItem() instanceof ElytraItem))
@@ -193,7 +194,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 			playerEntity.setDeltaMovement(playerEntity.getDeltaMovement()
 				.scale(.75f));
 			deployElytra(playerEntity);
-			CatnipServices.NETWORK.sendToServer(new EjectorElytraPacket(worldPosition));
+			NetworkHelper.INSTANCE.sendToServer(new EjectorElytraPacket(worldPosition));
 		}
 
 		if (doLogic) {

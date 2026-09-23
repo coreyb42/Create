@@ -3,7 +3,8 @@ package com.simibubi.create.foundation.block.connected;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.resources.Identifier;
 
 public class CTSpriteShifter {
@@ -16,7 +17,7 @@ public class CTSpriteShifter {
 			return ENTRY_CACHE.get(key);
 
 		CTSpriteShiftEntry entry = new CTSpriteShiftEntry(type);
-		if (CatnipServices.PLATFORM.getEnv().isClient())
+		if (PlatformHelper.INSTANCE.getEnv().isClient())
 			entry.set(blockTexture, connectedTexture);
 		ENTRY_CACHE.put(key, entry);
 		return entry;

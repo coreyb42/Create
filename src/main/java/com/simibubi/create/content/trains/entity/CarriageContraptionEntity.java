@@ -29,7 +29,8 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 
 import net.createmod.catnip.api.data.Couple;
 import net.createmod.catnip.api.math.VecHelper;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.createmod.catnip.api.theme.Color;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -203,7 +204,7 @@ public class CarriageContraptionEntity extends OrientedContraptionEntity {
 		carriage.forEachPresentEntity(cce -> {
 			cce.contraption.getBlocks()
 				.put(localPos, newInfo);
-			CatnipServices.NETWORK.sendToClientsTrackingEntity(cce,
+			NetworkHelper.INSTANCE.sendToClientsTrackingEntity(cce,
 				new ContraptionBlockChangedPacket(cce.getId(), localPos, newInfo.state()));
 		});
 	}
@@ -568,7 +569,7 @@ public class CarriageContraptionEntity extends OrientedContraptionEntity {
 				.equals(initialOrientation);
 
 		if (hudPacketCooldown-- <= 0 && player instanceof ServerPlayer sp) {
-			CatnipServices.NETWORK.sendToClient(sp, new TrainHUDUpdatePacket.Clientbound(carriage.train));
+			NetworkHelper.INSTANCE.sendToClient(sp, new TrainHUDUpdatePacket.Clientbound(carriage.train));
 			hudPacketCooldown = 5;
 		}
 
@@ -682,7 +683,7 @@ public class CarriageContraptionEntity extends OrientedContraptionEntity {
 
 	private void sendPrompt(Player player, MutableComponent component, boolean shadow) {
 		if (player instanceof ServerPlayer sp)
-			CatnipServices.NETWORK.sendToClient(sp, new TrainPromptPacket(component, shadow));
+			NetworkHelper.INSTANCE.sendToClient(sp, new TrainPromptPacket(component, shadow));
 	}
 
 	boolean stationMessage = false;

@@ -15,7 +15,8 @@ import com.simibubi.create.foundation.item.TooltipHelper;
 
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
 import net.createmod.catnip.api.client.lang.FontHelper.Palette;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
@@ -141,7 +142,7 @@ public abstract class AbstractFilterScreen<F extends AbstractFilterMenu> extends
 	protected void contentsCleared() {}
 
 	protected void sendOptionUpdate(Option option) {
-		CatnipServices.NETWORK.sendToServer(new FilterScreenPacket(option));
+		NetworkHelper.INSTANCE.sendToServer(new FilterScreenPacket(option));
 	}
 
 	@Override

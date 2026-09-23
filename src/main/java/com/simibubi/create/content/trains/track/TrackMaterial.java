@@ -9,7 +9,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -76,7 +77,7 @@ public class TrackMaterial {
 		this.particle = particle;
 		this.trackType = trackType;
 		this.customFactory = customFactory;
-		if (CatnipServices.PLATFORM.getEnv().isClient())
+		if (PlatformHelper.INSTANCE.getEnv().isClient())
 			this.modelHolder = modelHolder.get().get();
 		ALL.put(this.id, this);
 	}

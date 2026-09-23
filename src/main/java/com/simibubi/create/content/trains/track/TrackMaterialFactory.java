@@ -9,7 +9,8 @@ import com.simibubi.create.foundation.data.recipe.CommonMetal;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -58,7 +59,7 @@ public class TrackMaterialFactory {
 	}
 
 	public TrackMaterialFactory defaultModels() { // was setBuiltin
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> this.modelHolder = TrackMaterial.TrackModelHolder.DEFAULT);
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> this.modelHolder = TrackMaterial.TrackModelHolder.DEFAULT);
 		return this;
 	}
 
@@ -99,7 +100,7 @@ public class TrackMaterialFactory {
 	}
 
 	public TrackMaterialFactory standardModels() { // was defaultModels
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> {
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> {
 			String namespace = id.getNamespace();
 			String prefix = "block/track/" + id.getPath() + "/";
 			tieModel = PartialModel.of(Identifier.fromNamespaceAndPath(namespace, prefix + "tie"));
@@ -110,7 +111,7 @@ public class TrackMaterialFactory {
 	}
 
 	public TrackMaterialFactory customModels(Supplier<Supplier<PartialModel>> tieModel, Supplier<Supplier<PartialModel>> leftSegmentModel, Supplier<Supplier<PartialModel>> rightSegmentModel) {
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> {
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> {
 			this.tieModel = tieModel.get().get();
 			this.leftSegmentModel = leftSegmentModel.get().get();
 			this.rightSegmentModel = rightSegmentModel.get().get();
@@ -131,7 +132,7 @@ public class TrackMaterialFactory {
 		assert sleeperIngredient != null;
 		assert railsIngredient != null;
 		assert id != null;
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> {
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> {
 			assert modelHolder != null;
 			if (tieModel != null || leftSegmentModel != null || rightSegmentModel != null) {
 				assert tieModel != null && leftSegmentModel != null && rightSegmentModel != null;

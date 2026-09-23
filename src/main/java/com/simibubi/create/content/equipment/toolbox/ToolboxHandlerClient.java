@@ -16,7 +16,8 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 
 import net.createmod.catnip.api.client.gui.ScreenOpener;
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -91,7 +92,7 @@ public class ToolboxHandlerClient {
 				if (!ItemStack.matches(inSlot, result))
 					continue;
 
-				CatnipServices.NETWORK.sendToServer(
+				NetworkHelper.INSTANCE.sendToServer(
 					new ToolboxEquipPacket(toolboxBlockEntity.getBlockPos(), comp, player.getInventory().selected));
 				return true;
 			}

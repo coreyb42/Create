@@ -4,7 +4,8 @@ import java.util.function.Supplier;
 
 import org.jetbrains.annotations.Nullable;
 
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.RegistryAccess;
@@ -16,7 +17,7 @@ public final class GlobalRegistryAccess {
 	private static Supplier<@Nullable RegistryAccess> supplier;
 
 	static {
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> supplier = () -> {
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> supplier = () -> {
 			ClientPacketListener packetListener = Minecraft.getInstance().getConnection();
 			if (packetListener == null) {
 				return null;

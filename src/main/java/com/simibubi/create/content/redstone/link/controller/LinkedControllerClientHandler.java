@@ -5,7 +5,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import org.lwjgl.glfw.GLFW;
 
@@ -92,11 +93,11 @@ public class LinkedControllerClientHandler {
 		selectedLocation = BlockPos.ZERO;
 
 		if (inLectern())
-			CatnipServices.NETWORK.sendToServer(new LinkedControllerStopLecternPacket(lecternPos));
+			NetworkHelper.INSTANCE.sendToServer(new LinkedControllerStopLecternPacket(lecternPos));
 		lecternPos = null;
 
 		if (!currentlyPressed.isEmpty())
-			CatnipServices.NETWORK.sendToServer(new LinkedControllerInputPacket(currentlyPressed, false));
+			NetworkHelper.INSTANCE.sendToServer(new LinkedControllerInputPacket(currentlyPressed, false));
 		currentlyPressed.clear();
 
 		LinkedControllerItemRenderer.resetButtons();
@@ -165,13 +166,13 @@ public class LinkedControllerClientHandler {
 		if (MODE == Mode.ACTIVE) {
 			// Released Keys
 			if (!releasedKeys.isEmpty()) {
-				CatnipServices.NETWORK.sendToServer(new LinkedControllerInputPacket(releasedKeys, false, lecternPos));
+				NetworkHelper.INSTANCE.sendToServer(new LinkedControllerInputPacket(releasedKeys, false, lecternPos));
 				AllSoundEvents.CONTROLLER_CLICK.playAt(player.level(), player.blockPosition(), 1f, .5f, true);
 			}
 
 			// Newly Pressed Keys
 			if (!newKeys.isEmpty()) {
-				CatnipServices.NETWORK.sendToServer(new LinkedControllerInputPacket(newKeys, true, lecternPos));
+				NetworkHelper.INSTANCE.sendToServer(new LinkedControllerInputPacket(newKeys, true, lecternPos));
 				packetCooldown = PACKET_RATE;
 				AllSoundEvents.CONTROLLER_CLICK.playAt(player.level(), player.blockPosition(), 1f, .75f, true);
 			}
@@ -179,7 +180,7 @@ public class LinkedControllerClientHandler {
 			// Keepalive Pressed Keys
 			if (packetCooldown == 0) {
 				if (!pressedKeys.isEmpty()) {
-					CatnipServices.NETWORK.sendToServer(new LinkedControllerInputPacket(pressedKeys, true, lecternPos));
+					NetworkHelper.INSTANCE.sendToServer(new LinkedControllerInputPacket(pressedKeys, true, lecternPos));
 					packetCooldown = PACKET_RATE;
 				}
 			}
@@ -197,7 +198,7 @@ public class LinkedControllerClientHandler {
 			for (Integer integer : newKeys) {
 				LinkBehaviour linkBehaviour = BlockEntityBehaviour.get(mc.level, selectedLocation, LinkBehaviour.TYPE);
 				if (linkBehaviour != null) {
-					CatnipServices.NETWORK.sendToServer(new LinkedControllerBindPacket(integer, selectedLocation));
+					NetworkHelper.INSTANCE.sendToServer(new LinkedControllerBindPacket(integer, selectedLocation));
 					CreateLang.translate("linked_controller.key_bound", controls.get(integer)
 							.getTranslatedKeyMessage()
 							.getString())

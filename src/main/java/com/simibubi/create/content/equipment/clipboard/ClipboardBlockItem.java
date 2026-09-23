@@ -7,7 +7,8 @@ import com.simibubi.create.content.equipment.clipboard.ClipboardOverrides.Clipbo
 import com.simibubi.create.foundation.recipe.ItemCopyingRecipe.SupportsItemCopying;
 
 import net.createmod.catnip.api.client.gui.ScreenOpener;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentMap;
@@ -63,7 +64,7 @@ public class ClipboardBlockItem extends BlockItem implements SupportsItemCopying
 		player.getCooldowns()
 			.addCooldown(heldItem.getItem(), 10);
 		if (world.isClientSide)
-			CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> openScreen(player, heldItem.getComponents()));
+			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> openScreen(player, heldItem.getComponents()));
 		ClipboardContent content = heldItem.getOrDefault(AllDataComponents.CLIPBOARD_CONTENT, ClipboardContent.EMPTY);
 		heldItem.set(AllDataComponents.CLIPBOARD_CONTENT, content.setType(ClipboardType.EDITING));
 
@@ -77,7 +78,7 @@ public class ClipboardBlockItem extends BlockItem implements SupportsItemCopying
 	}
 
 	public void registerModelOverrides() {
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> ClipboardOverrides.registerModelOverridesClient(this));
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> ClipboardOverrides.registerModelOverridesClient(this));
 	}
 
 	@Override

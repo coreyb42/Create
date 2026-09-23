@@ -8,7 +8,8 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.gui.widget.IconButton;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import com.simibubi.create.foundation.utility.CreateLang;
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
 import net.minecraft.ChatFormatting;
@@ -160,7 +161,7 @@ public class BlueprintScreen extends AbstractSimiContainerScreen<BlueprintMenu> 
 	protected void contentsCleared() {}
 
 	protected void sendOptionUpdate(Option option) {
-		CatnipServices.NETWORK.sendToServer(new FilterScreenPacket(option));
+		NetworkHelper.INSTANCE.sendToServer(new FilterScreenPacket(option));
 	}
 
 	@Override

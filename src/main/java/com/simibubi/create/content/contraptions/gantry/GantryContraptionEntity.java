@@ -11,7 +11,8 @@ import com.simibubi.create.content.kinetics.gantry.GantryShaftBlock;
 import com.simibubi.create.content.kinetics.gantry.GantryShaftBlockEntity;
 import com.simibubi.create.foundation.utility.ServerSpeedProvider;
 
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.nbt.NBTHelper;
 import net.minecraft.client.Minecraft;
@@ -226,7 +227,7 @@ public class GantryContraptionEntity extends AbstractContraptionEntity {
 	}
 
 	public void sendPacket() {
-		CatnipServices.NETWORK.sendToClientsTrackingEntity(this,
+		NetworkHelper.INSTANCE.sendToClientsTrackingEntity(this,
 				new GantryContraptionUpdatePacket(getId(), getAxisCoord(), axisMotion, sequencedOffsetLimit));
 	}
 

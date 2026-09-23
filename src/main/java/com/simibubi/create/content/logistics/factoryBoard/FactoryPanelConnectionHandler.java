@@ -12,7 +12,8 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.client.outliner.Outliner;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -65,7 +66,7 @@ public class FactoryPanelConnectionHandler {
 		ItemStack filterFrom = panel.getFilter();
 		ItemStack filterTo = at.getFilter();
 
-		CatnipServices.NETWORK.sendToServer(new FactoryPanelConnectionPacket(panel.getPanelPosition(), connectingFrom, false));
+		NetworkHelper.INSTANCE.sendToServer(new FactoryPanelConnectionPacket(panel.getPanelPosition(), connectingFrom, false));
 
 		player.displayClientMessage(CreateLang.translate("factory_panel.panels_connected", filterFrom.getHoverName()
 			.getString(),
@@ -218,7 +219,7 @@ public class FactoryPanelConnectionHandler {
 			if (mc.player.isShiftKeyDown())
 				validRelocationTarget = null;
 			if (validRelocationTarget != null)
-				CatnipServices.NETWORK.sendToServer(new FactoryPanelConnectionPacket(validRelocationTarget, connectingFrom, true));
+				NetworkHelper.INSTANCE.sendToServer(new FactoryPanelConnectionPacket(validRelocationTarget, connectingFrom, true));
 
 			connectingFrom = null;
 			connectingFromBox = null;
@@ -265,7 +266,7 @@ public class FactoryPanelConnectionHandler {
 					bestPosition = panelPosition;
 				}
 
-				CatnipServices.NETWORK.sendToServer(new FactoryPanelConnectionPacket(bestPosition, connectingFrom, false));
+				NetworkHelper.INSTANCE.sendToServer(new FactoryPanelConnectionPacket(bestPosition, connectingFrom, false));
 
 				mc.player.displayClientMessage(CreateLang
 					.translate("factory_panel.link_connected", blockEntity.getBlockState()

@@ -10,7 +10,8 @@ import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import com.simibubi.create.content.logistics.depot.EjectorBlockEntity.State;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import net.createmod.catnip.api.math.VecHelper;
@@ -142,7 +143,7 @@ public class EjectorBlock extends HorizontalKineticBlock implements IBE<EjectorB
 		ejectorBlockEntity.activate();
 		ejectorBlockEntity.notifyUpdate();
 		if (entityIn.level().isClientSide)
-			CatnipServices.NETWORK.sendToServer(new EjectorTriggerPacket(ejectorBlockEntity.getBlockPos()));
+			NetworkHelper.INSTANCE.sendToServer(new EjectorTriggerPacket(ejectorBlockEntity.getBlockPos()));
 	}
 
 	@Override

@@ -17,7 +17,8 @@ import dan200.computercraft.api.peripheral.PeripheralCapability;
 import dev.engine_room.flywheel.lib.visualization.VisualizationHelper;
 import net.createmod.catnip.api.animation.LerpedFloat;
 import net.createmod.catnip.api.animation.LerpedFloat.Chaser;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -81,7 +82,7 @@ public class StickerBlockEntity extends SmartBlockEntity {
 
 		if (isAttachedToBlock() && piston.getValue(0) != piston.getValue() && piston.getValue() == 1) {
 			SuperGlueItem.spawnParticles(level, worldPosition, getBlockState().getValue(StickerBlock.FACING), true);
-			CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> playSound(true));
+			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> playSound(true));
 		}
 
 		if (!update)
@@ -89,10 +90,10 @@ public class StickerBlockEntity extends SmartBlockEntity {
 		update = false;
 		int target = isBlockStateExtended() ? 1 : 0;
 		if (isAttachedToBlock() && target == 0 && piston.getChaseTarget() == 1)
-			CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> playSound(false));
+			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> playSound(false));
 		piston.chase(target, .4f, Chaser.LINEAR);
 
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> VisualizationHelper.queueUpdate(this));
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> VisualizationHelper.queueUpdate(this));
 	}
 
 	public boolean isAttachedToBlock() {

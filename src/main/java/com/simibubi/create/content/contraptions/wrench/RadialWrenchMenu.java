@@ -37,7 +37,8 @@ import net.createmod.catnip.api.client.gui.UIRenderHelper;
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
 import net.createmod.catnip.api.client.gui.element.RenderElement;
 import net.createmod.catnip.api.math.AngleHelper;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
 import net.createmod.catnip.api.theme.Color;
 import net.createmod.ponder.enums.PonderGuiTextures;
@@ -353,7 +354,7 @@ public class RadialWrenchMenu extends AbstractSimiScreen {
 	private void submitChange() {
 		BlockState selectedState = allStates.get(selectedStateIndex);
 		if (selectedState != state) {
-			CatnipServices.NETWORK.sendToServer(new RadialWrenchMenuSubmitPacket(pos, selectedState));
+			NetworkHelper.INSTANCE.sendToServer(new RadialWrenchMenuSubmitPacket(pos, selectedState));
 		}
 
 		onClose();

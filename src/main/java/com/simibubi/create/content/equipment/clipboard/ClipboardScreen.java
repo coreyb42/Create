@@ -30,7 +30,8 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.createmod.catnip.api.client.gui.AbstractSimiScreen;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.StringSplitter;
@@ -370,7 +371,7 @@ public class ClipboardScreen extends AbstractSimiScreen {
 			toSend = content;
 		}
 
-		CatnipServices.NETWORK.sendToServer(new ClipboardEditPacket(targetSlot, toSend, targetedBlock));
+		NetworkHelper.INSTANCE.sendToServer(new ClipboardEditPacket(targetSlot, toSend, targetedBlock));
 	}
 
 	@Override

@@ -8,7 +8,8 @@ import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.content.equipment.blueprint.BlueprintAssignCompleteRecipePacket;
 import com.simibubi.create.content.equipment.blueprint.BlueprintMenu;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -43,7 +44,7 @@ public class BlueprintTransferHandler implements IRecipeTransferHandler<Blueprin
 		if (!doTransfer)
 			return null;
 
-		CatnipServices.NETWORK.sendToServer(new BlueprintAssignCompleteRecipePacket(craftingRecipe.id()));
+		NetworkHelper.INSTANCE.sendToServer(new BlueprintAssignCompleteRecipePacket(craftingRecipe.id()));
 		return null;
 	}
 

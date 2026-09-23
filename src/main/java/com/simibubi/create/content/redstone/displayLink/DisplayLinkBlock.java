@@ -18,7 +18,8 @@ import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.client.gui.ScreenOpener;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -151,7 +152,7 @@ public class DisplayLinkBlock extends WrenchableDirectionalBlock implements IBE<
 			return InteractionResult.PASS;
 		if (player.isShiftKeyDown())
 			return InteractionResult.PASS;
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> withBlockEntityDo(level, pos, be -> this.displayScreen(be, player)));
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> withBlockEntityDo(level, pos, be -> this.displayScreen(be, player)));
 		return InteractionResult.SUCCESS;
 	}
 

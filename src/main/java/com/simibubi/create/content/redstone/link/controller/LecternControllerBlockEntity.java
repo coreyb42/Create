@@ -10,7 +10,8 @@ import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 
 import net.createmod.catnip.api.data.codec.CatnipCodecUtils;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -114,7 +115,7 @@ public class LecternControllerBlockEntity extends SmartBlockEntity {
 		super.tick();
 
 		if (level.isClientSide) {
-			CatnipServices.PLATFORM.executeOnClientOnly(() -> this::tryToggleActive);
+			PlatformHelper.INSTANCE.executeOnClientOnly(() -> this::tryToggleActive);
 			prevUser = user;
 		}
 

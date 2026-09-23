@@ -15,7 +15,8 @@ import com.simibubi.create.content.trains.GlobalRailwayManager;
 import io.netty.buffer.ByteBuf;
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
 import net.createmod.catnip.net.base.ClientboundPacketPayload;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -60,7 +61,7 @@ public record TrackGraphRollCallPacket(List<Entry> entries) implements Clientbou
 		}
 
 		for (Integer failed : failedIds)
-			CatnipServices.NETWORK.sendToServer(new TrackGraphRequestPacket(failed));
+			NetworkHelper.INSTANCE.sendToServer(new TrackGraphRequestPacket(failed));
 		for (UUID unused : unusedIds)
 			manager.trackNetworks.remove(unused);
 	}

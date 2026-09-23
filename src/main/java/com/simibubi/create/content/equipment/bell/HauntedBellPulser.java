@@ -3,7 +3,8 @@ package com.simibubi.create.content.equipment.bell;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.simibubi.create.AllBlocks;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.createmod.catnip.api.data.IntAttached;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -58,7 +59,7 @@ public class HauntedBellPulser {
 
 	public static void sendPulse(ServerLevel world, BlockPos pos, int distance, boolean canOverlap) {
 		ChunkPos chunk = world.getChunkAt(pos).getPos();
-		CatnipServices.NETWORK.sendToClientsTrackingChunk(world, chunk, new SoulPulseEffectPacket(pos, distance, canOverlap));
+		NetworkHelper.INSTANCE.sendToClientsTrackingChunk(world, chunk, new SoulPulseEffectPacket(pos, distance, canOverlap));
 	}
 
 }

@@ -9,7 +9,8 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.content.kinetics.mechanicalArm.ArmInteractionPoint.Mode;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.client.outliner.Outliner;
@@ -124,7 +125,7 @@ public class ArmInteractionPointHandler {
 					.sendStatus(player);
 		}
 
-		CatnipServices.NETWORK.sendToServer(new ArmPlacementPacket(currentSelection, pos));
+		NetworkHelper.INSTANCE.sendToServer(new ArmPlacementPacket(currentSelection, pos));
 		currentSelection.clear();
 		currentItem = null;
 	}

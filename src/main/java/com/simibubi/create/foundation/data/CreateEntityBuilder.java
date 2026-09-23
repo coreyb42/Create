@@ -14,7 +14,7 @@ import com.tterrag.registrate.util.OneTimeEventReceiver;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 
 import dev.engine_room.flywheel.lib.visualization.SimpleEntityVisualizer;
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -46,7 +46,7 @@ public class CreateEntityBuilder<T extends Entity, P> extends EntityBuilder<T, P
 
 	public CreateEntityBuilder<T, P> visual(NonNullSupplier<SimpleEntityVisualizer.Factory<T>> visualFactory, Predicate<@NotNull T> renderNormally) {
 		if (this.visualFactory == null) {
-			CatnipServices.PLATFORM.executeOnClientOnly(() -> this::registerVisualizer);
+			PlatformHelper.INSTANCE.executeOnClientOnly(() -> this::registerVisualizer);
 		}
 
 		this.visualFactory = visualFactory;

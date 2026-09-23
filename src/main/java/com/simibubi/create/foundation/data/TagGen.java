@@ -13,11 +13,11 @@ import com.tterrag.registrate.providers.RegistrateTagsProvider;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 
 import net.minecraft.core.Holder;
-import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.data.tags.TagAppender;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagBuilder;
+import net.minecraft.tags.TagEntry;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -83,22 +83,70 @@ public class TagGen {
 		}
 
 		public CreateTagAppender<T> tag(TagKey<T> tag) {
-			TagBuilder tagbuilder = getOrCreateRawBuilder(tag);
-			return new CreateTagAppender<>(tagbuilder, keyExtractor);
+		return new CreateTagAppender<>(provider.tag(tag), keyExtractor);
 		}
 
 		public TagBuilder getOrCreateRawBuilder(TagKey<T> tag) {
-			return provider.addTag(tag).getInternalBuilder();
+		return provider.rawBuilder(tag);
 		}
 	}
 
-	public static class CreateTagAppender<T> extends TagsProvider.TagAppender<T> {
+	public static class CreateTagAppender<T> implements TagAppender<T> {
 
+		private final TagAppender<T> delegate;
 		private final Function<T, ResourceKey<T>> keyExtractor;
 
-		public CreateTagAppender(TagBuilder pBuilder, Function<T, ResourceKey<T>> pKeyExtractor) {
-			super(pBuilder);
+		public CreateTagAppender(TagAppender<T> delegate, Function<T, ResourceKey<T>> pKeyExtractor) {
+			this.delegate = delegate;
 			this.keyExtractor = pKeyExtractor;
+		}
+
+		@Override
+		public CreateTagAppender<T> add(ResourceKey<T> entry) {
+			delegate.add(entry);
+			return this;
+		}
+
+		@Override
+		public CreateTagAppender<T> addOptional(ResourceKey<T> entry) {
+			delegate.addOptional(entry);
+			return this;
+		}
+
+		@Override
+		public CreateTagAppender<T> addTag(TagKey<T> tag) {
+			delegate.addTag(tag);
+			return this;
+		}
+
+		@Override
+		public CreateTagAppender<T> addOptionalTag(TagKey<T> tag) {
+			delegate.addOptionalTag(tag);
+			return this;
+		}
+
+		@Override
+		public CreateTagAppender<T> add(TagEntry entry) {
+			delegate.add(entry);
+			return this;
+		}
+
+		@Override
+		public CreateTagAppender<T> replace(boolean replace) {
+			delegate.replace(replace);
+			return this;
+		}
+
+		@Override
+		public CreateTagAppender<T> remove(ResourceKey<T> entry) {
+			delegate.remove(entry);
+			return this;
+		}
+
+		@Override
+		public CreateTagAppender<T> remove(TagKey<T> tag) {
+			delegate.remove(tag);
+			return this;
 		}
 
 		public CreateTagAppender<T> add(T entry) {

@@ -42,6 +42,7 @@ if (useLocalPortDependencies) {
     includeBuild(ponderDirectory) {
         dependencySubstitution {
             substitute module("net.createmod.ponder:ponder-neoforge") using project(":neoforge")
+            substitute module("net.createmod.catnip:catnip-neoforge") using project(":catnip:neoforge")
         }
     }
     includeBuild(registrateDirectory) {

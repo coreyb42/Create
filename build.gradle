@@ -1,3 +1,5 @@
+import org.gradle.api.attributes.LibraryElements
+
 plugins {
     id("idea")
     id("eclipse")
@@ -138,11 +140,31 @@ dependencies {
     })
 
     jarJar(api("net.createmod.ponder:ponder-neoforge:$ponder_version+mc$minecraft_version") {
+        // Ponder's NeoForge artifact merges common sources into its jar. Use
+        // that published variant in a local composite build as well, rather
+        // than its platform-only classes directory.
+        attributes {
+            attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE,
+                objects.named(LibraryElements, LibraryElements.JAR))
+        }
         version {
             strictly "[$ponder_version+mc$minecraft_version,)"
             prefer "$ponder_version+mc$minecraft_version"
         }
     })
+
+    // Catnip is Ponder's published API dependency. Declare it directly for
+    // the local composite port: Gradle does not propagate the jar variant
+    // requested through Ponder, and Ponder's classes-directory variant omits
+    // its merged Catnip common sources.
+    if (providers.gradleProperty("use_local_port_dependencies").map { it.toBoolean() }.orElse(false).get()) {
+        jarJar(api("net.createmod.catnip:catnip-neoforge:$ponder_version+mc$minecraft_version") {
+            attributes {
+                attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE,
+                    objects.named(LibraryElements, LibraryElements.JAR))
+            }
+        })
+    }
 
     // Local dependencies - not published to consumers
     if (enable_optional_integrations.toBoolean()) {

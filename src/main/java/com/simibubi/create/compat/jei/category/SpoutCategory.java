@@ -24,7 +24,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.runtime.IIngredientManager;
 import net.createmod.catnip.registry.RegisteredObjectsHelper;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -52,7 +52,7 @@ public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
 			if (PotionFluidHandler.isPotionItem(stack)) {
 				FluidStack fluidFromPotionItem = PotionFluidHandler.getFluidFromPotionItem(stack);
 				Ingredient bottle = Ingredient.of(Items.GLASS_BOTTLE);
-				ResourceLocation id = Create.asResource("potions");
+				Identifier id = Create.asResource("potions");
 				SizedFluidIngredient fluidIngredient = new SizedFluidIngredient(
 					DataComponentFluidIngredient.of(false, fluidFromPotionItem), fluidFromPotionItem.getAmount());
 				FillingRecipe recipe = new StandardProcessingRecipe.Builder<>(FillingRecipe::new, id)
@@ -92,9 +92,9 @@ public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
 						continue;
 
 					Ingredient bucket = Ingredient.of(stack);
-					ResourceLocation itemName = RegisteredObjectsHelper.getKeyOrThrow(stack.getItem());
-					ResourceLocation fluidName = RegisteredObjectsHelper.getKeyOrThrow(fluidCopy.getFluid());
-					ResourceLocation id = Create.asResource("fill_" + itemName.getNamespace() + "_" + itemName.getPath()
+					Identifier itemName = RegisteredObjectsHelper.getKeyOrThrow(stack.getItem());
+					Identifier fluidName = RegisteredObjectsHelper.getKeyOrThrow(fluidCopy.getFluid());
+					Identifier id = Create.asResource("fill_" + itemName.getNamespace() + "_" + itemName.getPath()
 							+ "_with_" + fluidName.getNamespace() + "_" + fluidName.getPath());
 					SizedFluidIngredient fluidIngredient = new SizedFluidIngredient(
 						DataComponentFluidIngredient.of(false, fluidCopy), fluidCopy.getAmount());

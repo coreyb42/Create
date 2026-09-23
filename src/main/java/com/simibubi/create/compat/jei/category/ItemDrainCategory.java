@@ -22,7 +22,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.runtime.IIngredientManager;
 import net.createmod.catnip.registry.RegisteredObjectsHelper;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackLinkedSet;
 import net.minecraft.world.item.Items;
@@ -49,7 +49,7 @@ public class ItemDrainCategory extends CreateRecipeCategory<EmptyingRecipe> {
 			if (PotionFluidHandler.isPotionItem(stack)) {
 				FluidStack fluidFromPotionItem = PotionFluidHandler.getFluidFromPotionItem(stack);
 				Ingredient potion = Ingredient.of(stack);
-				ResourceLocation id = Create.asResource("potions");
+				Identifier id = Create.asResource("potions");
 				EmptyingRecipe recipe = new StandardProcessingRecipe.Builder<>(EmptyingRecipe::new, id)
 						.withItemIngredients(potion)
 						.withFluidOutputs(fluidFromPotionItem)
@@ -78,10 +78,10 @@ public class ItemDrainCategory extends CreateRecipeCategory<EmptyingRecipe> {
 			result = ItemHelper.sameItem(stack, result) ? stack : emptiedItems.addOrGet(result);
 
 			Ingredient ingredient = Ingredient.of(stack);
-			ResourceLocation itemName = RegisteredObjectsHelper.getKeyOrThrow(stack.getItem());
-			ResourceLocation fluidName = RegisteredObjectsHelper.getKeyOrThrow(extracted.getFluid());
+			Identifier itemName = RegisteredObjectsHelper.getKeyOrThrow(stack.getItem());
+			Identifier fluidName = RegisteredObjectsHelper.getKeyOrThrow(extracted.getFluid());
 
-			ResourceLocation id = Create.asResource("empty_" + itemName.getNamespace() + "_" + itemName.getPath() + "_of_"
+			Identifier id = Create.asResource("empty_" + itemName.getNamespace() + "_" + itemName.getPath() + "_of_"
 					+ fluidName.getNamespace() + "_" + fluidName.getPath());
 			EmptyingRecipe recipe = new StandardProcessingRecipe.Builder<>(EmptyingRecipe::new, id)
 					.withItemIngredients(ingredient)

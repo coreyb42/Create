@@ -15,7 +15,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -58,13 +58,13 @@ public class StockTickerBlock extends HorizontalDirectionalBlock implements IBE<
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (stack.getItem() instanceof LogisticallyLinkedBlockItem)
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 
 		return onBlockEntityUseItemOn(level, pos, stbe -> {
 			if (!stbe.behaviour.mayInteractMessage(player))
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 
 			if (!level.isClientSide() && !stbe.receivedPayments.isEmpty()) {
 				for (int i = 0; i < stbe.receivedPayments.getSlots(); i++)
@@ -73,7 +73,7 @@ public class StockTickerBlock extends HorizontalDirectionalBlock implements IBE<
 							stbe.receivedPayments.extractItem(i, stbe.receivedPayments.getStackInSlot(i)
 								.getCount(), false));
 				AllSoundEvents.playItemPickup(player);
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 
 			if (player instanceof ServerPlayer sp) {
@@ -84,7 +84,7 @@ public class StockTickerBlock extends HorizontalDirectionalBlock implements IBE<
 						.sendStatus(player);
 			}
 
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		});
 	}
 

@@ -20,10 +20,10 @@ import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import io.netty.buffer.ByteBuf;
-import net.createmod.catnip.codecs.stream.CatnipStreamCodecBuilders;
-import net.createmod.catnip.lang.Lang;
-import net.createmod.catnip.math.AngleHelper;
-import net.createmod.catnip.math.VecHelper;
+import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
+import net.createmod.catnip.api.lang.Lang;
+import net.createmod.catnip.api.math.AngleHelper;
+import net.createmod.catnip.api.math.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -34,7 +34,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -216,22 +215,22 @@ public class FactoryPanelBlock extends FaceAttachedHorizontalDirectionalBlock
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (player == null)
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 		if (level.isClientSide)
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		if (!AllBlocks.FACTORY_GAUGE.isIn(stack))
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		Vec3 location = hitResult.getLocation();
 		if (location == null)
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 
 		if (!FactoryPanelBlockItem.isTuned(stack)) {
 			AllSoundEvents.DENY.playOnServer(level, pos);
 			player.displayClientMessage(CreateLang.translate("factory_panel.tune_before_placing")
 				.component(), true);
-			return ItemInteractionResult.FAIL;
+			return InteractionResult.FAIL;
 		}
 
 		PanelSlot newSlot = getTargetedSlot(pos, state, location);
@@ -246,7 +245,7 @@ public class FactoryPanelBlock extends FaceAttachedHorizontalDirectionalBlock
 			if (stack.isEmpty())
 				player.setItemInHand(hand, ItemStack.EMPTY);
 		});
-		return ItemInteractionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override

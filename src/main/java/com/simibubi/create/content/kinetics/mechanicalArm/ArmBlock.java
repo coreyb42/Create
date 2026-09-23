@@ -1,6 +1,6 @@
 package com.simibubi.create.content.kinetics.mechanicalArm;
 
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 
 import org.apache.commons.lang3.mutable.MutableBoolean;
 
@@ -84,14 +84,14 @@ public class ArmBlock extends KineticBlock implements IBE<ArmBlockEntity>, ICogW
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (AllItems.GOGGLES.isIn(stack)) {
-			ItemInteractionResult gogglesResult = onBlockEntityUseItemOn(level, pos, ate -> {
+			InteractionResult gogglesResult = onBlockEntityUseItemOn(level, pos, ate -> {
 				if (ate.goggles)
-					return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+					return InteractionResult.PASS;
 				ate.goggles = true;
 				ate.notifyUpdate();
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			});
 			if (gogglesResult.consumesAction())
 				return gogglesResult;
@@ -111,7 +111,7 @@ public class ArmBlock extends KineticBlock implements IBE<ArmBlockEntity>, ICogW
 			be.sendData();
 		});
 
-		return success.booleanValue() ? ItemInteractionResult.SUCCESS : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		return success.booleanValue() ? InteractionResult.SUCCESS : InteractionResult.PASS;
 	}
 
 }

@@ -16,7 +16,7 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -94,37 +94,37 @@ public class PackagerBlock extends WrenchableDirectionalBlock implements IBE<Pac
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (AllItems.WRENCH.isIn(stack))
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 		if (AllBlocks.FACTORY_GAUGE.isIn(stack))
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 		if (AllBlocks.STOCK_LINK.isIn(stack) && !(state.hasProperty(LINKED) && state.getValue(LINKED)))
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 		if (AllBlocks.PACKAGE_FROGPORT.isIn(stack))
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 
 		if (onBlockEntityUseItemOn(level, pos, be -> {
 			if (be.heldBox.isEmpty()) {
 				if (be.animationTicks > 0)
-					return ItemInteractionResult.SUCCESS;
+					return InteractionResult.SUCCESS;
 				if (PackageItem.isPackage(stack)) {
 					if (level.isClientSide())
-						return ItemInteractionResult.SUCCESS;
+						return InteractionResult.SUCCESS;
 					if (!be.unwrapBox(stack.copy(), true))
-						return ItemInteractionResult.SUCCESS;
+						return InteractionResult.SUCCESS;
 					be.unwrapBox(stack.copy(), false);
 					be.triggerStockCheck();
 					stack.shrink(1);
 					AllSoundEvents.DEPOT_PLOP.playOnServer(level, pos);
 					if (stack.isEmpty())
 						player.setItemInHand(hand, ItemStack.EMPTY);
-					return ItemInteractionResult.SUCCESS;
+					return InteractionResult.SUCCESS;
 				}
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 			if (be.animationTicks > 0)
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			if (!level.isClientSide()) {
 				player.getInventory()
 					.placeItemBackInInventory(be.heldBox.copy());
@@ -132,11 +132,11 @@ public class PackagerBlock extends WrenchableDirectionalBlock implements IBE<Pac
 				be.heldBox = ItemStack.EMPTY;
 				be.notifyUpdate();
 			}
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}).consumesAction())
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 
-		return ItemInteractionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override

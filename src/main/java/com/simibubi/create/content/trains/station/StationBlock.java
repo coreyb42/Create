@@ -10,14 +10,13 @@ import com.simibubi.create.foundation.advancement.AdvancementBehaviour;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 
-import net.createmod.catnip.gui.ScreenOpener;
+import net.createmod.catnip.api.client.gui.ScreenOpener;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -103,28 +102,28 @@ public class StationBlock extends Block implements IBE<StationBlockEntity>, IWre
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (player == null || player.isShiftKeyDown())
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 		if (AllItems.WRENCH.isIn(stack))
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 
 		if (stack.getItem() == Items.FILLED_MAP) {
 			return onBlockEntityUseItemOn(level, pos, station -> {
 				if (level.isClientSide)
-					return ItemInteractionResult.SUCCESS;
+					return InteractionResult.SUCCESS;
 
 				if (station.getStation() == null || station.getStation().getId() == null)
-					return ItemInteractionResult.FAIL;
+					return InteractionResult.FAIL;
 
 				MapItemSavedData savedData = MapItem.getSavedData(stack, level);
 				if (!(savedData instanceof StationMapData stationMapData))
-					return ItemInteractionResult.FAIL;
+					return InteractionResult.FAIL;
 
 				if (!stationMapData.toggleStation(level, pos, station))
-					return ItemInteractionResult.FAIL;
+					return InteractionResult.FAIL;
 
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			});
 		}
 
@@ -144,7 +143,7 @@ public class StationBlock extends Block implements IBE<StationBlockEntity>, IWre
 
 		if (result == InteractionResult.PASS)
 			CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> withBlockEntityDo(level, pos, be -> this.displayScreen(be, player)));
-		return ItemInteractionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	@OnlyIn(value = Dist.CLIENT)

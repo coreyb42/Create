@@ -19,7 +19,7 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import com.simibubi.create.foundation.utility.IInteractionChecker;
 
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
-import net.createmod.ponder.api.VirtualBlockEntity;
+import net.createmod.ponder.api.client.VirtualBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;

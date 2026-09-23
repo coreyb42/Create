@@ -22,7 +22,7 @@ import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
 import com.simibubi.create.foundation.blockEntity.IMergeableBE;
 import com.simibubi.create.foundation.blockEntity.IMultiBlockEntityContainer;
 
-import net.createmod.catnip.nbt.NBTProcessors;
+import net.createmod.catnip.api.nbt.NBTProcessors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -40,7 +40,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -454,14 +453,14 @@ public class BlockHelper {
 
 	public static InteractionResult invokeUse(BlockState state, Level level, Player player,
 											   InteractionHand hand, BlockHitResult ray) {
-		ItemInteractionResult iteminteractionresult = state.useItemOn(
+		InteractionResult iteminteractionresult = state.useItemOn(
 				player.getItemInHand(hand), level, player, hand, ray
 		);
 		if (iteminteractionresult.consumesAction()) {
 			return iteminteractionresult.result();
 		}
 
-		if (iteminteractionresult == ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION && hand == InteractionHand.MAIN_HAND) {
+		if (iteminteractionresult == InteractionResult.PASS && hand == InteractionHand.MAIN_HAND) {
 			InteractionResult interactionresult = state.useWithoutItem(level, player, ray);
 			if (interactionresult.consumesAction()) {
 				return interactionresult;

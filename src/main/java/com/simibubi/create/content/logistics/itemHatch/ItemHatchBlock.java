@@ -20,7 +20,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -92,22 +92,22 @@ public class ItemHatchBlock extends HorizontalDirectionalBlock
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (level.isClientSide())
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		if (player instanceof FakePlayer)
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 
 		BlockEntity blockEntity = level.getBlockEntity(pos.relative(state.getValue(FACING)));
 		if (blockEntity == null)
-			return ItemInteractionResult.FAIL;
+			return InteractionResult.FAIL;
 		IItemHandler targetInv = level.getCapability(ItemHandler.BLOCK, blockEntity.getBlockPos(), null);
 		if (targetInv == null)
-			return ItemInteractionResult.FAIL;
+			return InteractionResult.FAIL;
 
 		FilteringBehaviour filter = BlockEntityBehaviour.get(level, pos, FilteringBehaviour.TYPE);
 		if (filter == null)
-			return ItemInteractionResult.FAIL;
+			return InteractionResult.FAIL;
 
 		Inventory inventory = player.getInventory();
 		List<ItemStack> failedInsertions = new ArrayList<>();
@@ -115,7 +115,7 @@ public class ItemHatchBlock extends HorizontalDirectionalBlock
 		boolean depositItemInHand = !player.isShiftKeyDown();
 
 		if (!depositItemInHand && stack.is(Items.TOOLS_WRENCH))
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 
 		for (int i = 0; i < inventory.items.size(); i++) {
 			if (Inventory.isHotbarSlot(i) != depositItemInHand)
@@ -148,7 +148,7 @@ public class ItemHatchBlock extends HorizontalDirectionalBlock
 		failedInsertions.forEach(inventory::placeItemBackInInventory);
 
 		if (!anyInserted)
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 
 		AllSoundEvents.ITEM_HATCH.playOnServer(level, pos);
 		level.setBlockAndUpdate(pos, state.setValue(OPEN, true));
@@ -156,7 +156,7 @@ public class ItemHatchBlock extends HorizontalDirectionalBlock
 
 		CreateLang.translate(depositItemInHand ? "item_hatch.deposit_item" : "item_hatch.deposit_inventory")
 			.sendStatus(player);
-		return ItemInteractionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override

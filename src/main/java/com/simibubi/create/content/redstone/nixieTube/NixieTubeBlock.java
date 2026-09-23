@@ -19,7 +19,7 @@ import com.simibubi.create.content.schematics.requirement.ItemRequirement;
 import com.simibubi.create.content.schematics.requirement.ItemRequirement.ItemUseType;
 import com.simibubi.create.foundation.block.IBE;
 
-import net.createmod.catnip.data.Iterate;
+import net.createmod.catnip.api.data.Iterate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -27,7 +27,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
@@ -64,25 +64,25 @@ public class NixieTubeBlock extends DoubleFaceAttachedBlock
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (player.isShiftKeyDown())
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 
 		NixieTubeBlockEntity nixie = getBlockEntity(level, pos);
 
 		if (nixie == null)
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 
 		// Refuse interaction if nixie tube is in a computer-controlled row
 		if (isInComputerControlledRow(level, pos))
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 
 		if (stack.isEmpty()) {
 			if (nixie.reactsToRedstone())
-				return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+				return InteractionResult.PASS;
 			nixie.clearCustomText();
 			updateDisplayedRedstoneValue(state, level, pos);
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
 		boolean display =
@@ -90,7 +90,7 @@ public class NixieTubeBlock extends DoubleFaceAttachedBlock
 		DyeColor dye = DyeColor.getColor(stack);
 
 		if (!display && dye == null)
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 
 		Component component = stack.getOrDefault(DataComponents.CUSTOM_NAME, Component.empty());
 
@@ -101,7 +101,7 @@ public class NixieTubeBlock extends DoubleFaceAttachedBlock
 		}
 
 		if (level.isClientSide)
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 
 		String tagUsed = Component.Serializer.toJson(component, level.registryAccess());
 		// Skip computer check in this walk since it was already performed at the start.
@@ -112,7 +112,7 @@ public class NixieTubeBlock extends DoubleFaceAttachedBlock
 				level.setBlockAndUpdate(currentPos, withColor(state, dye));
 		});
 
-		return ItemInteractionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	public static Direction getLeftNixieDirection(@NotNull BlockState state) {

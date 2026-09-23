@@ -12,7 +12,7 @@ import com.simibubi.create.foundation.blockEntity.ComparatorUtil;
 import com.simibubi.create.foundation.fluid.FluidHelper;
 import com.simibubi.create.foundation.fluid.FluidHelper.FluidExchange;
 
-import net.createmod.catnip.lang.Lang;
+import net.createmod.catnip.api.lang.Lang;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -24,7 +24,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -152,22 +151,22 @@ public class FluidTankBlock extends Block implements IWrenchable, IBE<FluidTankB
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		boolean onClient = level.isClientSide;
 
 		if (stack.isEmpty())
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 		if (!player.isCreative() && !creative)
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 
 		FluidExchange exchange = null;
 		FluidTankBlockEntity be = ConnectivityHandler.partAt(getBlockEntityType(), level, pos);
 		if (be == null)
-			return ItemInteractionResult.FAIL;
+			return InteractionResult.FAIL;
 
 		IFluidHandler tankCapability = level.getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), null);
 		if (tankCapability == null)
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 		FluidStack prevFluidInTank = tankCapability.getFluidInTank(0)
 			.copy();
 
@@ -179,8 +178,8 @@ public class FluidTankBlock extends Block implements IWrenchable, IBE<FluidTankB
 		if (exchange == null) {
 			if (GenericItemEmptying.canItemBeEmptied(level, stack)
 				|| GenericItemFilling.canItemBeFilled(level, stack))
-				return ItemInteractionResult.SUCCESS;
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+				return InteractionResult.SUCCESS;
+			return InteractionResult.PASS;
 		}
 
 		SoundEvent soundevent = null;
@@ -244,7 +243,7 @@ public class FluidTankBlock extends Block implements IWrenchable, IBE<FluidTankB
 							.scale(1 / 20f);
 						vec = vec.add(motion);
 						level.addParticle(blockParticleData, vec.x, vec.y, vec.z, motion.x, motion.y, motion.z);
-						return ItemInteractionResult.SUCCESS;
+						return InteractionResult.SUCCESS;
 					}
 
 					controllerBE.sendDataImmediately();
@@ -253,7 +252,7 @@ public class FluidTankBlock extends Block implements IWrenchable, IBE<FluidTankB
 			}
 		}
 
-		return ItemInteractionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override

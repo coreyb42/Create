@@ -28,9 +28,9 @@ import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringB
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import dan200.computercraft.api.peripheral.PeripheralCapability;
-import net.createmod.catnip.codecs.CatnipCodecUtils;
-import net.createmod.catnip.data.IntAttached;
-import net.createmod.catnip.nbt.NBTHelper;
+import net.createmod.catnip.api.data.codec.CatnipCodecUtils;
+import net.createmod.catnip.api.data.IntAttached;
+import net.createmod.catnip.api.nbt.NBTHelper;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -44,7 +44,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
@@ -137,7 +137,7 @@ public class TableClothBlockEntity extends SmartBlockEntity implements Transform
 		return !requestData.encodedRequest().isEmpty();
 	}
 
-	public ItemInteractionResult use(Player player, BlockHitResult ray) {
+	public InteractionResult use(Player player, BlockHitResult ray) {
 		if (isShop())
 			return useShop(player);
 
@@ -145,7 +145,7 @@ public class TableClothBlockEntity extends SmartBlockEntity implements Transform
 
 		if (heldItem.isEmpty()) {
 			if (manuallyAddedItems.isEmpty())
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			player.setItemInHand(InteractionHand.MAIN_HAND, manuallyAddedItems.remove(manuallyAddedItems.size() - 1));
 			level.playSound(null, worldPosition, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 0.5f, 1f);
 
@@ -156,11 +156,11 @@ public class TableClothBlockEntity extends SmartBlockEntity implements Transform
 			} else
 				notifyUpdate();
 
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
 		if (manuallyAddedItems.size() >= 4)
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 
 		level.playSound(null, worldPosition, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 0.5f, 1f);
 		manuallyAddedItems.add(heldItem.copyWithCount(1));
@@ -170,7 +170,7 @@ public class TableClothBlockEntity extends SmartBlockEntity implements Transform
 		if (heldItem.isEmpty())
 			player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
 		notifyUpdate();
-		return ItemInteractionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	public boolean targetsPriceTag(Player player, BlockHitResult ray) {
@@ -179,7 +179,7 @@ public class TableClothBlockEntity extends SmartBlockEntity implements Transform
 				.subtract(Vec3.atLowerCornerOf(worldPosition)));
 	}
 
-	public ItemInteractionResult useShop(Player player) {
+	public InteractionResult useShop(Player player) {
 		ItemStack itemInHand = player.getItemInHand(InteractionHand.MAIN_HAND);
 		ItemStack prevListItem = ItemStack.EMPTY;
 		boolean addOntoList = false;
@@ -206,14 +206,14 @@ public class TableClothBlockEntity extends SmartBlockEntity implements Transform
 			CreateLang.translate("stock_keeper.shopping_list_empty_hand")
 				.sendStatus(player);
 			AllSoundEvents.DENY.playOnServer(level, worldPosition, 0.5f, 1);
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
 		if (getPaymentItem().isEmpty()) {
 			CreateLang.translate("stock_keeper.no_price_set")
 				.sendStatus(player);
 			AllSoundEvents.DENY.playOnServer(level, worldPosition, 0.5f, 1);
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
 		UUID tickerID = null;
@@ -228,7 +228,7 @@ public class TableClothBlockEntity extends SmartBlockEntity implements Transform
 				.style(ChatFormatting.RED)
 				.sendStatus(player);
 			AllSoundEvents.DENY.playOnServer(level, worldPosition, 0.5f, 1);
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
 		if (stockLevel == 0) {
@@ -245,7 +245,7 @@ public class TableClothBlockEntity extends SmartBlockEntity implements Transform
 						.placeItemBackInInventory(prevListItem);
 			}
 
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
 		ShoppingList list = new ShoppingList(new ArrayList<>(), owner, tickerID);
@@ -291,7 +291,7 @@ public class TableClothBlockEntity extends SmartBlockEntity implements Transform
 			player.getInventory()
 				.placeItemBackInInventory(newListItem);
 
-		return ItemInteractionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	public int getStockLevelForTrade(@Nullable ShoppingList otherPurchases) {

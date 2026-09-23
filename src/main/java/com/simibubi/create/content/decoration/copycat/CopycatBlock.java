@@ -18,7 +18,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -90,9 +89,9 @@ public abstract class CopycatBlock extends Block implements IBE<CopycatBlockEnti
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 								 if (player == null)
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 
 		Direction face = hitResult.getDirection();
 		BlockState materialIn = getAcceptedBlockState(level, pos, stack, face);
@@ -100,23 +99,23 @@ public abstract class CopycatBlock extends Block implements IBE<CopycatBlockEnti
 		if (materialIn != null)
 			materialIn = prepareMaterial(level, pos, state, player, hand, hitResult, materialIn);
 		if (materialIn == null)
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 
 		BlockState material = materialIn;
 		return onBlockEntityUseItemOn(level, pos, ufte -> {
 			if (ufte.getMaterial()
 				.is(material.getBlock())) {
 				if (!ufte.cycleMaterial())
-					return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+					return InteractionResult.PASS;
 				ufte.getLevel()
 					.playSound(null, ufte.getBlockPos(), SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, .75f,
 						.95f);
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 			if (ufte.hasCustomMaterial())
-				return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+				return InteractionResult.PASS;
 			if (level.isClientSide())
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 
 			ufte.setMaterial(material);
 			ufte.setConsumedItem(stack);
@@ -125,12 +124,12 @@ public abstract class CopycatBlock extends Block implements IBE<CopycatBlockEnti
 					.getPlaceSound(), SoundSource.BLOCKS, 1, .75f);
 
 			if (player.isCreative())
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 
 			stack.shrink(1);
 			if (stack.isEmpty())
 				player.setItemInHand(hand, ItemStack.EMPTY);
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		});
 	}
 

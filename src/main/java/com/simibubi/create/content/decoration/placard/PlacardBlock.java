@@ -23,7 +23,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -119,11 +119,11 @@ public class PlacardBlock extends FaceAttachedHorizontalDirectionalBlock
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (player.isShiftKeyDown())
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.PASS;
 		if (level.isClientSide)
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 
 		ItemStack inHand = player.getItemInHand(hand);
 		return onBlockEntityUseItemOn(level, pos, pte -> {
@@ -131,17 +131,17 @@ public class PlacardBlock extends FaceAttachedHorizontalDirectionalBlock
 
 			if (!player.mayBuild() || inHand.isEmpty() || !inBlock.isEmpty()) {
 				if (inBlock.isEmpty())
-					return ItemInteractionResult.FAIL;
+					return InteractionResult.FAIL;
 				if (inHand.isEmpty())
-					return ItemInteractionResult.FAIL;
+					return InteractionResult.FAIL;
 				if (state.getValue(POWERED))
-					return ItemInteractionResult.FAIL;
+					return InteractionResult.FAIL;
 
 				boolean test = inBlock.getItem() instanceof FilterItem ? FilterItemStack.of(inBlock)
 					.test(level, inHand) : ItemStack.isSameItemSameComponents(inHand, inBlock);
 				if (!test) {
 					AllSoundEvents.DENY.play(level, null, pos, 1, 1);
-					return ItemInteractionResult.SUCCESS;
+					return InteractionResult.SUCCESS;
 				}
 
 				AllSoundEvents.CONFIRM.play(level, null, pos, 1, 1);
@@ -149,7 +149,7 @@ public class PlacardBlock extends FaceAttachedHorizontalDirectionalBlock
 				updateNeighbours(state, level, pos);
 				pte.poweredTicks = 19;
 				pte.notifyUpdate();
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 
 			level.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1, 1);
@@ -161,7 +161,7 @@ public class PlacardBlock extends FaceAttachedHorizontalDirectionalBlock
 					player.setItemInHand(hand, ItemStack.EMPTY);
 			}
 
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		});
 	}
 

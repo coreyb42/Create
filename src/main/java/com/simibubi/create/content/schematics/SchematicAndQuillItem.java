@@ -13,7 +13,7 @@ import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -48,7 +48,7 @@ public class SchematicAndQuillItem extends Item {
 			Tag tag = iterator.next();
 			if (!(tag instanceof CompoundTag compoundtag))
 				continue;
-			if (compoundtag.contains("nbt") && ResourceLocation.parse(compoundtag.getCompound("nbt")
+			if (compoundtag.contains("nbt") && Identifier.parse(compoundtag.getCompound("nbt")
 				.getString("id")).equals(AllEntityTypes.SUPER_GLUE.getId())) {
 				iterator.remove();
 			}

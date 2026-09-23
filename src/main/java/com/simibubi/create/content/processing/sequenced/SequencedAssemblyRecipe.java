@@ -21,7 +21,7 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -110,7 +110,7 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 		return result;
 	}
 
-	private ItemStack advance(ResourceLocation id, ItemStack input, RandomSource random) {
+	private ItemStack advance(Identifier id, ItemStack input, RandomSource random) {
 		int step = getStep(input);
 		if ((step + 1) / sequence.size() >= loops)
 			return rollResult(random);
@@ -143,7 +143,7 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 		return ItemStack.EMPTY;
 	}
 
-	private boolean appliesTo(ResourceLocation id, ItemStack input) {
+	private boolean appliesTo(Identifier id, ItemStack input) {
 		// First, check if the item is already in the middle of a sequenced assembly recipe
 		if (input.has(AllDataComponents.SEQUENCED_ASSEMBLY)) {
 			//noinspection DataFlowIssue
@@ -264,15 +264,15 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 		return transitionalItem.getStack();
 	}
 
-	public record SequencedAssembly(ResourceLocation id, int step, float progress) {
+	public record SequencedAssembly(Identifier id, int step, float progress) {
 		public static final Codec<SequencedAssembly> CODEC = RecordCodecBuilder.create(i -> i.group(
-			ResourceLocation.CODEC.fieldOf("id").forGetter(SequencedAssembly::id),
+			Identifier.CODEC.fieldOf("id").forGetter(SequencedAssembly::id),
 			Codec.INT.fieldOf("step").forGetter(SequencedAssembly::step),
 			Codec.FLOAT.fieldOf("progress").forGetter(SequencedAssembly::progress)
 		).apply(i, SequencedAssembly::new));
 
 		public static final StreamCodec<ByteBuf, SequencedAssembly> STREAM_CODEC = StreamCodec.composite(
-			ResourceLocation.STREAM_CODEC, SequencedAssembly::id,
+			Identifier.STREAM_CODEC, SequencedAssembly::id,
 			ByteBufCodecs.INT, SequencedAssembly::step,
 			ByteBufCodecs.FLOAT, SequencedAssembly::progress,
 			SequencedAssembly::new

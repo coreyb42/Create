@@ -38,7 +38,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -243,7 +243,7 @@ public class DisplayLinkScreen extends AbstractSimiScreen {
 
 		if (!sources.isEmpty()) {
 			DisplaySource source = sources.get(sourceTypeSelector == null ? 0 : sourceTypeSelector.getState());
-			ResourceLocation id = CreateBuiltInRegistries.DISPLAY_SOURCE.getKey(source);
+			Identifier id = CreateBuiltInRegistries.DISPLAY_SOURCE.getKey(source);
 			if (id != null) {
 				sourceData.putString("Id", id.toString());
 			}

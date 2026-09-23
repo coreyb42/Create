@@ -31,7 +31,6 @@ import mezz.jei.common.transfer.RecipeTransferUtil;
 import mezz.jei.library.transfer.RecipeTransferErrorMissingSlots;
 import mezz.jei.library.transfer.RecipeTransferErrorTooltip;
 import net.createmod.catnip.platform.CatnipServices;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
@@ -44,7 +43,6 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public class StockKeeperTransferHandler implements IUniversalRecipeTransferHandler<StockKeeperRequestMenu> {
 	private IJeiHelpers helpers;
 

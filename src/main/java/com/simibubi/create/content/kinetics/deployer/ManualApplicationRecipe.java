@@ -12,7 +12,7 @@ import com.simibubi.create.foundation.utility.BlockHelper;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -130,7 +130,7 @@ public class ManualApplicationRecipe extends ItemApplicationRecipe {
 
 	public static RecipeHolder<DeployerApplicationRecipe> asDeploying(RecipeHolder<?> recipe) {
 		ManualApplicationRecipe mar = (ManualApplicationRecipe) recipe.value();
-		ResourceLocation id = AllRecipeTypes.CAN_BE_AUTOMATED.test(recipe) ?
+		Identifier id = AllRecipeTypes.CAN_BE_AUTOMATED.test(recipe) ?
 			recipe.id().withSuffix("_using_deployer") : recipe.id();
 		ItemApplicationRecipe.Builder<DeployerApplicationRecipe> builder =
 			new ItemApplicationRecipe.Builder<>(DeployerApplicationRecipe::new, id)

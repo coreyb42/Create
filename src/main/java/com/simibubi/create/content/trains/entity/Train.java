@@ -67,7 +67,7 @@ import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -1225,7 +1225,7 @@ public class Train {
 		if (tag.contains("SpeedBeforeStall"))
 			train.speedBeforeStall = tag.getDouble("SpeedBeforeStall");
 		train.targetSpeed = tag.getDouble("TargetSpeed");
-		train.icon = TrainIconType.byId(ResourceLocation.parse(tag.getString("IconType")));
+		train.icon = TrainIconType.byId(Identifier.parse(tag.getString("IconType")));
 		train.name = Component.Serializer.fromJson(tag.getString("Name"), registries);
 		train.currentStation = tag.contains("Station") ? tag.getUUID("Station") : null;
 		train.currentlyBackwards = tag.getBoolean("Backwards");

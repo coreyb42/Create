@@ -18,7 +18,7 @@ import net.minecraft.advancements.critereon.ItemUsedOnLocationTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.Block;
 
 public class CreateAdvancement {
 
-	static final ResourceLocation BACKGROUND = Create.asResource("textures/gui/advancements.png");
+	static final Identifier BACKGROUND = Create.asResource("textures/gui/advancements.png");
 	static final String LANG = "advancement." + Create.ID + ".";
 	static final String SECRET_SUFFIX = "\n\u00A77(Hidden Advancement)";
 

@@ -29,7 +29,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -202,7 +202,7 @@ public class CarriageBogey {
 	}
 
 	public static CarriageBogey read(CompoundTag tag, TrackGraph graph, DimensionPalette dimensions) {
-		ResourceLocation location = ResourceLocation.parse(tag.getString("Type"));
+		Identifier location = Identifier.parse(tag.getString("Type"));
 		AbstractBogeyBlock<?> type = (AbstractBogeyBlock<?>) BuiltInRegistries.BLOCK.get(location);
 		boolean upsideDown = tag.getBoolean("UpsideDown");
 		Couple<TravellingPoint> points = Couple.deserializeEach(tag.getList("Points", Tag.TAG_COMPOUND),
@@ -212,7 +212,7 @@ public class CarriageBogey {
 	}
 
 	public BogeyStyle getStyle() {
-		ResourceLocation location = NBTHelper.readResourceLocation(this.bogeyData, BOGEY_STYLE_KEY);
+		Identifier location = NBTHelper.readResourceLocation(this.bogeyData, BOGEY_STYLE_KEY);
 		BogeyStyle style = AllBogeyStyles.BOGEY_STYLES.get(location);
 		return style != null ? style : AllBogeyStyles.STANDARD; // just for safety
 	}

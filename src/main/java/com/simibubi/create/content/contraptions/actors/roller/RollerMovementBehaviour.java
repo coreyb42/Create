@@ -46,7 +46,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.NbtUtils;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -414,7 +414,7 @@ public class RollerMovementBehaviour extends BlockBreakingMovementBehaviour {
 		if (block == null)
 			return null;
 
-		ResourceLocation rl = BuiltInRegistries.BLOCK.getKey(block);
+		Identifier rl = BuiltInRegistries.BLOCK.getKey(block);
 		String namespace = rl.getNamespace();
 		String blockName = rl.getPath();
 		int nameLength = blockName.length();
@@ -428,7 +428,7 @@ public class RollerMovementBehaviour extends BlockBreakingMovementBehaviour {
 			possibleSlabLocations.add(blockName.substring(0, nameLength - 7) + "_slab");
 
 		for (String locationAttempt : possibleSlabLocations) {
-			Optional<Block> result = BuiltInRegistries.BLOCK.getOptional(ResourceLocation.fromNamespaceAndPath(namespace, locationAttempt));
+			Optional<Block> result = BuiltInRegistries.BLOCK.getOptional(Identifier.fromNamespaceAndPath(namespace, locationAttempt));
 			if (result.isEmpty())
 				continue;
 			return result.get()

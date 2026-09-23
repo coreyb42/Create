@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
 import net.neoforged.api.distmarker.Dist;
@@ -25,7 +25,7 @@ import net.neoforged.neoforge.client.event.RenderArmEvent;
 @EventBusSubscriber(value = Dist.CLIENT)
 public class NetheriteBacktankFirstPersonRenderer {
 
-	private static final ResourceLocation BACKTANK_ARMOR_LOCATION =
+	private static final Identifier BACKTANK_ARMOR_LOCATION =
 		Create.asResource("textures/models/armor/netherite_diving_arm.png");
 
 	private static boolean rendererActive = false;

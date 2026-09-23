@@ -25,7 +25,7 @@ import dev.engine_room.flywheel.api.backend.BackendManager;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.SharedConstants;
 import net.minecraft.SystemReport;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
 
 import net.neoforged.fml.ModList;

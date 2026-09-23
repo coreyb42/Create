@@ -21,7 +21,6 @@ import net.createmod.catnip.data.Couple;
 import net.createmod.catnip.placement.IPlacementHelper;
 import net.createmod.catnip.placement.PlacementHelpers;
 import net.createmod.catnip.placement.PlacementOffset;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -174,7 +173,6 @@ public class SteamEngineBlock extends FaceAttachedHorizontalDirectionalBlock
 		return AllBlockEntityTypes.STEAM_ENGINE.get();
 	}
 
-	@MethodsReturnNonnullByDefault
 	private static class PlacementHelper implements IPlacementHelper {
 		@Override
 		public Predicate<ItemStack> getItemPredicate() {

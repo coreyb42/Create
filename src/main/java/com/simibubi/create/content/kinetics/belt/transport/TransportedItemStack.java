@@ -11,7 +11,7 @@ import com.simibubi.create.content.logistics.box.PackageItem;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 public class TransportedItemStack implements Comparable<TransportedItemStack> {
@@ -83,7 +83,7 @@ public class TransportedItemStack implements Comparable<TransportedItemStack> {
 		nbt.putInt("InDirection", insertedFrom.get3DDataValue());
 
 		if (processedBy != null) {
-			ResourceLocation key = CreateBuiltInRegistries.FAN_PROCESSING_TYPE.getKey(processedBy);
+			Identifier key = CreateBuiltInRegistries.FAN_PROCESSING_TYPE.getKey(processedBy);
 			if (key == null)
 				throw new IllegalArgumentException("Could not get id for FanProcessingType " + processedBy + "!");
 

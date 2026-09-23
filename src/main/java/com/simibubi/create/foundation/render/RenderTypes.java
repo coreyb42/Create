@@ -8,11 +8,11 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.simibubi.create.Create;
 
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceProvider;
 
 import net.neoforged.api.distmarker.Dist;
@@ -80,7 +80,7 @@ public class RenderTypes extends RenderStateShard {
 			.setOverlayState(OVERLAY)
 			.createCompositeState(true));
 
-	private static final Function<ResourceLocation, RenderType> CHAIN = Util.memoize((p_234330_) -> {
+	private static final Function<Identifier, RenderType> CHAIN = Util.memoize((p_234330_) -> {
 		return RenderType.create("chain_conveyor_chain", DefaultVertexFormat.BLOCK, VertexFormat.Mode.QUADS, 256, false,
 			true, RenderType.CompositeState.builder()
 				.setShaderState(RENDERTYPE_CUTOUT_MIPPED_SHADER)
@@ -108,9 +108,9 @@ public class RenderTypes extends RenderStateShard {
 		return ADDITIVE;
 	}
 
-	public static BiFunction<ResourceLocation, Boolean, RenderType> TRAIN_MAP = Util.memoize(RenderTypes::getTrainMap);
+	public static BiFunction<Identifier, Boolean, RenderType> TRAIN_MAP = Util.memoize(RenderTypes::getTrainMap);
 
-	private static RenderType getTrainMap(ResourceLocation locationIn, boolean linearFiltering) {
+	private static RenderType getTrainMap(Identifier locationIn, boolean linearFiltering) {
 		RenderType.CompositeState rendertype$state = RenderType.CompositeState.builder()
 			.setShaderState(RENDERTYPE_TEXT_SHADER)
 			.setTextureState(new RenderStateShard.TextureStateShard(locationIn, linearFiltering, false))
@@ -129,7 +129,7 @@ public class RenderTypes extends RenderStateShard {
 		return ITEM_GLOWING_TRANSLUCENT;
 	}
 
-	public static RenderType chain(ResourceLocation pLocation) {
+	public static RenderType chain(Identifier pLocation) {
 		return CHAIN.apply(pLocation);
 	}
 

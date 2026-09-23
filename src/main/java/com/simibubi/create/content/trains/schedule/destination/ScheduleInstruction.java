@@ -16,7 +16,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
 
 public abstract class ScheduleInstruction extends ScheduleDataEntry {
@@ -39,9 +39,9 @@ public abstract class ScheduleInstruction extends ScheduleDataEntry {
 	}
 
 	public static ScheduleInstruction fromTag(HolderLookup.Provider registries, CompoundTag tag) {
-		ResourceLocation location = ResourceLocation.parse(tag.getString("Id"));
+		Identifier location = Identifier.parse(tag.getString("Id"));
 		Supplier<? extends ScheduleInstruction> supplier = null;
-		for (Pair<ResourceLocation, Supplier<? extends ScheduleInstruction>> pair : Schedule.INSTRUCTION_TYPES)
+		for (Pair<Identifier, Supplier<? extends ScheduleInstruction>> pair : Schedule.INSTRUCTION_TYPES)
 			if (pair.getFirst()
 				.equals(location))
 				supplier = pair.getSecond();

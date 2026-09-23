@@ -14,13 +14,13 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.simibubi.create.api.data.recipe.DatagenMod;
 import com.simibubi.create.foundation.data.recipe.Mods;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 @Internal
 public record SimpleDatagenIngredient(DatagenMod mod, String id) implements Ingredient.Value {
 	public static final MapCodec<SimpleDatagenIngredient> MAP_CODEC = RecordCodecBuilder.mapCodec((instance) ->
-		instance.group(ResourceLocation.CODEC.fieldOf("item").forGetter((i) -> i.mod.asResource(i.id)))
+		instance.group(Identifier.CODEC.fieldOf("item").forGetter((i) -> i.mod.asResource(i.id)))
 			.apply(instance, (location) -> {
 				for (Mods mod : Mods.values()) {
 					if (mod.getId().equals(location.getNamespace())) {

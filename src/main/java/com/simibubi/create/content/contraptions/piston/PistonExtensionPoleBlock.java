@@ -15,7 +15,6 @@ import com.simibubi.create.foundation.placement.PoleHelper;
 
 import net.createmod.catnip.placement.IPlacementHelper;
 import net.createmod.catnip.placement.PlacementHelpers;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -157,7 +156,6 @@ public class PistonExtensionPoleBlock extends WrenchableDirectionalBlock impleme
 		return false;
 	}
 
-	@MethodsReturnNonnullByDefault
 	public static class PlacementHelper extends PoleHelper<Direction> {
 
 		private static final PlacementHelper instance = new PlacementHelper();

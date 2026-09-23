@@ -31,7 +31,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.PathProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -702,9 +702,9 @@ public class AllAdvancements implements DataProvider {
 			PathProvider pathProvider = output.createPathProvider(PackOutput.Target.DATA_PACK, "advancement");
 			List<CompletableFuture<?>> futures = new ArrayList<>();
 
-			Set<ResourceLocation> set = Sets.newHashSet();
+			Set<Identifier> set = Sets.newHashSet();
 			Consumer<AdvancementHolder> consumer = (advancement) -> {
-				ResourceLocation id = advancement.id();
+				Identifier id = advancement.id();
 				if (!set.add(id))
 					throw new IllegalStateException("Duplicate advancement " + id);
 				Path path = pathProvider.json(id);

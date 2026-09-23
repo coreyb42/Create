@@ -17,7 +17,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -79,7 +79,7 @@ public abstract class ClickToLinkBlockItem extends BlockItem {
 			return InteractionResult.SUCCESS;
 		}
 
-		ResourceLocation placedDim = level.dimension()
+		Identifier placedDim = level.dimension()
 			.location();
 
 		if (!stack.has(AllDataComponents.CLICK_TO_LINK_DATA)) {
@@ -114,7 +114,7 @@ public abstract class ClickToLinkBlockItem extends BlockItem {
 		ClickToLinkData data = stack.get(AllDataComponents.CLICK_TO_LINK_DATA);
 		//noinspection DataFlowIssue
 		BlockPos selectedPos = data.selectedPos();
-		ResourceLocation selectedDim = data.selectedDim();
+		Identifier selectedDim = data.selectedDim();
 		BlockPos placedPos = pos.relative(pContext.getClickedFace(), state.canBeReplaced() ? 0 : 1);
 
 		if (maxDistance != -1 && (!selectedPos.closerThan(placedPos, maxDistance) || !selectedDim.equals(placedDim))) {
@@ -192,15 +192,15 @@ public abstract class ClickToLinkBlockItem extends BlockItem {
 				.move(pos);
 	}
 
-	public record ClickToLinkData(BlockPos selectedPos, ResourceLocation selectedDim) {
+	public record ClickToLinkData(BlockPos selectedPos, Identifier selectedDim) {
 		public static final Codec<ClickToLinkData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			BlockPos.CODEC.fieldOf("selected_pos").forGetter(ClickToLinkData::selectedPos),
-			ResourceLocation.CODEC.fieldOf("selected_dim").forGetter(ClickToLinkData::selectedDim)
+			Identifier.CODEC.fieldOf("selected_dim").forGetter(ClickToLinkData::selectedDim)
 		).apply(instance, ClickToLinkData::new));
 
 		public static final StreamCodec<ByteBuf, ClickToLinkData> STREAM_CODEC = StreamCodec.composite(
 		    BlockPos.STREAM_CODEC, ClickToLinkData::selectedPos,
-		    ResourceLocation.STREAM_CODEC, ClickToLinkData::selectedDim,
+		    Identifier.STREAM_CODEC, ClickToLinkData::selectedDim,
 		    ClickToLinkData::new
 		);
 	}

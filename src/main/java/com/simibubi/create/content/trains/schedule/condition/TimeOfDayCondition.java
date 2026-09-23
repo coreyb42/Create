@@ -18,7 +18,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -93,7 +93,7 @@ public class TimeOfDayCondition extends ScheduleWaitCondition {
 	}
 
 	@Override
-	public ResourceLocation getId() {
+	public Identifier getId() {
 		return Create.asResource("time_of_day");
 	}
 
@@ -102,8 +102,8 @@ public class TimeOfDayCondition extends ScheduleWaitCondition {
 	public boolean renderSpecialIcon(GuiGraphics graphics, int x, int y) {
 		int displayHr = (intData("Hour") + 12) % 24;
 		float progress = (displayHr * 60f + intData("Minute")) / (24 * 60);
-		ResourceLocation location =
-			ResourceLocation.withDefaultNamespace("textures/item/clock_" + twoDigits(Mth.clamp((int) (progress * 64), 0, 63)) + ".png");
+		Identifier location =
+			Identifier.withDefaultNamespace("textures/item/clock_" + twoDigits(Mth.clamp((int) (progress * 64), 0, 63)) + ".png");
 		graphics.blit(location, x, y, 0, 0, 0, 16, 16, 16, 16);
 		return true;
 	}

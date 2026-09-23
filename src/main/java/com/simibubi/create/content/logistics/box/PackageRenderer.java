@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
@@ -52,7 +52,7 @@ public class PackageRenderer extends EntityRenderer<PackageEntity> {
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(PackageEntity pEntity) {
+	public Identifier getTextureLocation(PackageEntity pEntity) {
 		return null;
 	}
 

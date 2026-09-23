@@ -11,7 +11,7 @@ import net.createmod.catnip.animation.AnimationTickHolder;
 import net.createmod.catnip.data.WorldAttached;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
@@ -37,7 +37,7 @@ public class ChainConveyorPackage {
 		public float yaw;
 		public float prevYaw;
 		public boolean flipped;
-		public ResourceLocation modelKey;
+		public Identifier modelKey;
 
 		public WeakReference<ChainConveyorBlockEntity> beReference;
 

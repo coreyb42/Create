@@ -45,12 +45,11 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.createmod.catnip.config.ConfigBase.ConfigBool;
 import net.minecraft.ChatFormatting;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -61,7 +60,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public abstract class CreateRecipeCategory<T extends Recipe<?>> implements IRecipeCategory<RecipeHolder<T>> {
 	private static final IDrawable BASIC_SLOT = asDrawable(AllGuiTextures.JEI_SLOT);
 	private static final IDrawable CHANCE_SLOT = asDrawable(AllGuiTextures.JEI_CHANCE_SLOT);
@@ -374,7 +372,7 @@ public abstract class CreateRecipeCategory<T extends Recipe<?>> implements IReci
 			return build(Create.asResource(name), factory);
 		}
 
-		public CreateRecipeCategory<T> build(ResourceLocation id, Factory<T> factory) {
+		public CreateRecipeCategory<T> build(Identifier id, Factory<T> factory) {
 			Supplier<List<RecipeHolder<T>>> recipesSupplier;
 			if (config.get()) {
 				recipesSupplier = () -> {

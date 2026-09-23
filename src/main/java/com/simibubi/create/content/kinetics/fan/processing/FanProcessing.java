@@ -9,7 +9,7 @@ import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -95,7 +95,7 @@ public class FanProcessing {
 		CompoundTag processing = createData.getCompound("Processing");
 
 		if (!processing.contains("Type") || AllFanProcessingTypes.parseLegacy(processing.getString("Type")) != type) {
-			ResourceLocation key = CreateBuiltInRegistries.FAN_PROCESSING_TYPE.getKey(type);
+			Identifier key = CreateBuiltInRegistries.FAN_PROCESSING_TYPE.getKey(type);
 			if (key == null)
 				throw new IllegalArgumentException("Could not get id for FanProcessingType " + type + "!");
 

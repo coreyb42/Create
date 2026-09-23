@@ -17,7 +17,7 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -121,7 +121,7 @@ public class BlueprintRenderer extends EntityRenderer<BlueprintEntity> {
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(BlueprintEntity entity) {
+	public Identifier getTextureLocation(BlueprintEntity entity) {
 		return null;
 	}
 

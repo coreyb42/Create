@@ -10,7 +10,7 @@ import com.tterrag.registrate.util.nullness.NonNullSupplier;
 
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.platform.CatnipServices;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
@@ -19,12 +19,12 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.common.Tags.Items;
 
 public class TrackMaterialFactory {
-	private final ResourceLocation id;
+	private final Identifier id;
 	private String langName;
 	private NonNullSupplier<NonNullSupplier<? extends TrackBlock>> trackBlock;
 	private Ingredient sleeperIngredient = Ingredient.EMPTY;
 	private Ingredient railsIngredient = Ingredient.fromValues(Stream.of(new Ingredient.TagValue(Items.NUGGETS_IRON), new Ingredient.TagValue(CommonMetal.ZINC.nuggets)));
-	private ResourceLocation particle;
+	private Identifier particle;
 	private TrackMaterial.TrackType trackType = TrackMaterial.TrackType.STANDARD;
 
 	@Nullable
@@ -39,11 +39,11 @@ public class TrackMaterialFactory {
 	@OnlyIn(Dist.CLIENT)
 	private PartialModel rightSegmentModel;
 
-	public TrackMaterialFactory(ResourceLocation id) {
+	public TrackMaterialFactory(Identifier id) {
 		this.id = id;
 	}
 
-	public static TrackMaterialFactory make(ResourceLocation id) {  // Convenience function for static import
+	public static TrackMaterialFactory make(Identifier id) {  // Convenience function for static import
 		return new TrackMaterialFactory(id);
 	}
 
@@ -88,7 +88,7 @@ public class TrackMaterialFactory {
 		return this;
 	}
 
-	public TrackMaterialFactory particle(ResourceLocation particle) {
+	public TrackMaterialFactory particle(Identifier particle) {
 		this.particle = particle;
 		return this;
 	}
@@ -102,9 +102,9 @@ public class TrackMaterialFactory {
 		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> {
 			String namespace = id.getNamespace();
 			String prefix = "block/track/" + id.getPath() + "/";
-			tieModel = PartialModel.of(ResourceLocation.fromNamespaceAndPath(namespace, prefix + "tie"));
-			leftSegmentModel = PartialModel.of(ResourceLocation.fromNamespaceAndPath(namespace, prefix + "segment_left"));
-			rightSegmentModel = PartialModel.of(ResourceLocation.fromNamespaceAndPath(namespace, prefix + "segment_right"));
+			tieModel = PartialModel.of(Identifier.fromNamespaceAndPath(namespace, prefix + "tie"));
+			leftSegmentModel = PartialModel.of(Identifier.fromNamespaceAndPath(namespace, prefix + "segment_left"));
+			rightSegmentModel = PartialModel.of(Identifier.fromNamespaceAndPath(namespace, prefix + "segment_right"));
 		});
 		return this;
 	}

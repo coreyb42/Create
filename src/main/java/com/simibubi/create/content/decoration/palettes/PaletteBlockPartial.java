@@ -20,7 +20,7 @@ import net.createmod.catnip.lang.Lang;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -70,7 +70,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 		return itemBuilder.build();
 	}
 
-	protected ResourceLocation getTexture(String variantName, PaletteBlockPattern pattern, int index) {
+	protected Identifier getTexture(String variantName, PaletteBlockPattern pattern, int index) {
 		return PaletteBlockPattern.toLocation(variantName, pattern.getTexture(index));
 	}
 
@@ -163,8 +163,8 @@ public abstract class PaletteBlockPartial<B extends Block> {
 		protected void generateBlockState(DataGenContext<Block, SlabBlock> ctx, RegistrateBlockstateProvider prov,
 										  String variantName, PaletteBlockPattern pattern, Supplier<? extends Block> block) {
 			String name = ctx.getName();
-			ResourceLocation mainTexture = getTexture(variantName, pattern, 0);
-			ResourceLocation sideTexture = customSide ? getTexture(variantName, pattern, 1) : mainTexture;
+			Identifier mainTexture = getTexture(variantName, pattern, 0);
+			Identifier sideTexture = customSide ? getTexture(variantName, pattern, 1) : mainTexture;
 
 			ModelFile bottom = prov.models()
 				.slab(name, sideTexture, mainTexture, mainTexture);

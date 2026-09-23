@@ -13,7 +13,7 @@ import net.createmod.catnip.nbt.NBTHelper;
 import net.createmod.catnip.animation.LerpedFloat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,14 +39,14 @@ public abstract class AbstractBogeyBlockEntity extends CachedRenderBBBlockEntity
 
 	public void setBogeyData(@NotNull CompoundTag newData) {
 		if (!newData.contains(BOGEY_STYLE_KEY)) {
-			ResourceLocation style = getDefaultStyle().id;
+			Identifier style = getDefaultStyle().id;
 			NBTHelper.writeResourceLocation(newData, BOGEY_STYLE_KEY, style);
 		}
 		this.bogeyData = newData;
 	}
 
 	public void setBogeyStyle(@NotNull BogeyStyle style) {
-		ResourceLocation location = style.id;
+		Identifier location = style.id;
 		CompoundTag data = this.getBogeyData();
 		NBTHelper.writeResourceLocation(data, BOGEY_STYLE_KEY, location);
 		markUpdated();
@@ -55,7 +55,7 @@ public abstract class AbstractBogeyBlockEntity extends CachedRenderBBBlockEntity
 	@NotNull
 	public BogeyStyle getStyle() {
 		CompoundTag data = this.getBogeyData();
-		ResourceLocation currentStyle = NBTHelper.readResourceLocation(data, BOGEY_STYLE_KEY);
+		Identifier currentStyle = NBTHelper.readResourceLocation(data, BOGEY_STYLE_KEY);
 		BogeyStyle style = AllBogeyStyles.BOGEY_STYLES.get(currentStyle);
 		if (style == null) {
 			setBogeyStyle(getDefaultStyle());

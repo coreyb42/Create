@@ -18,7 +18,7 @@ import net.createmod.catnip.data.Couple;
 import net.createmod.catnip.nbt.NBTHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
 public class EdgeData {
@@ -205,7 +205,7 @@ public class EdgeData {
 
 		if (nbt.contains("Points"))
 			NBTHelper.iterateCompoundList(nbt.getList("Points", Tag.TAG_COMPOUND), tag -> {
-				ResourceLocation location = ResourceLocation.parse(tag.getString("Type"));
+				Identifier location = Identifier.parse(tag.getString("Type"));
 				EdgePointType<?> type = EdgePointType.TYPES.get(location);
 				if (type == null || !tag.contains("Id"))
 					return;

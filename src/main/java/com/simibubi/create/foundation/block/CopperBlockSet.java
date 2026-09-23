@@ -26,7 +26,7 @@ import net.createmod.catnip.lang.Lang;
 import net.createmod.catnip.registry.RegisteredObjectsHelper;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -145,7 +145,7 @@ public class CopperBlockSet {
 						.requires(unwaxed)
 						.requires(Items.HONEYCOMB)
 						.unlockedBy("has_unwaxed", RegistrateRecipeProvider.has(unwaxed))
-						.save(prov, ResourceLocation.fromNamespaceAndPath(ctx.getId()
+						.save(prov, Identifier.fromNamespaceAndPath(ctx.getId()
 							.getNamespace(), "crafting/" + generalDirectory + ctx.getName() + "_from_honeycomb"));
 				}
 
@@ -246,13 +246,13 @@ public class CopperBlockSet {
 				.getPath();
 			String baseLoc = ModelProvider.BLOCK_FOLDER + "/" + blocks.generalDirectory + getWeatherStatePrefix(state);
 
-			ResourceLocation texture = prov.modLoc(baseLoc + blocks.getName());
+			Identifier texture = prov.modLoc(baseLoc + blocks.getName());
 			if (Objects.equals(blocks.getName(), blocks.getEndTextureName())) {
 				// End texture and base texture are equal, so we should use cube_all.
 				prov.simpleBlock(block, prov.models().cubeAll(path, texture));
 			} else {
 				// End texture and base texture aren't equal, so we should use cube_column.
-				ResourceLocation endTexture = prov.modLoc(baseLoc + blocks.getEndTextureName());
+				Identifier endTexture = prov.modLoc(baseLoc + blocks.getEndTextureName());
 				prov.simpleBlock(block, prov.models()
 					.cubeColumn(path, texture, endTexture));
 			}
@@ -296,12 +296,12 @@ public class CopperBlockSet {
 		@Override
 		public void generateBlockState(DataGenContext<Block, SlabBlock> ctx, RegistrateBlockstateProvider prov,
 									   CopperBlockSet blocks, WeatherState state, boolean waxed) {
-			ResourceLocation fullModel =
+			Identifier fullModel =
 				prov.modLoc(ModelProvider.BLOCK_FOLDER + "/" + getWeatherStatePrefix(state) + blocks.getName());
 
 			String baseLoc = ModelProvider.BLOCK_FOLDER + "/" + blocks.generalDirectory + getWeatherStatePrefix(state);
-			ResourceLocation texture = prov.modLoc(baseLoc + blocks.getName());
-			ResourceLocation endTexture = prov.modLoc(baseLoc + blocks.getEndTextureName());
+			Identifier texture = prov.modLoc(baseLoc + blocks.getName());
+			Identifier endTexture = prov.modLoc(baseLoc + blocks.getEndTextureName());
 
 			prov.slabBlock(ctx.get(), fullModel, texture, endTexture, endTexture);
 		}
@@ -345,8 +345,8 @@ public class CopperBlockSet {
 		public void generateBlockState(DataGenContext<Block, StairBlock> ctx, RegistrateBlockstateProvider prov,
 									   CopperBlockSet blocks, WeatherState state, boolean waxed) {
 			String baseLoc = ModelProvider.BLOCK_FOLDER + "/" + blocks.generalDirectory + getWeatherStatePrefix(state);
-			ResourceLocation texture = prov.modLoc(baseLoc + blocks.getName());
-			ResourceLocation endTexture = prov.modLoc(baseLoc + blocks.getEndTextureName());
+			Identifier texture = prov.modLoc(baseLoc + blocks.getName());
+			Identifier endTexture = prov.modLoc(baseLoc + blocks.getEndTextureName());
 			prov.stairsBlock(ctx.get(), texture, endTexture, endTexture);
 		}
 

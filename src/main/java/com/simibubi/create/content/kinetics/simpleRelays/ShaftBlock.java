@@ -14,7 +14,6 @@ import com.simibubi.create.foundation.placement.PoleHelper;
 import net.createmod.catnip.placement.IPlacementHelper;
 import net.createmod.catnip.placement.PlacementHelpers;
 import net.createmod.catnip.placement.PlacementOffset;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -100,7 +99,6 @@ public class ShaftBlock extends AbstractSimpleShaftBlock implements EncasableBlo
 		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
-	@MethodsReturnNonnullByDefault
 	private static class PlacementHelper extends PoleHelper<Direction.Axis> {
 		// used for extending a shaft in its axis, like the piston poles. works with
 		// shafts and cogs

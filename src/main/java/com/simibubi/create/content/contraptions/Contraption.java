@@ -97,7 +97,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.game.DebugPackets;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
@@ -807,7 +807,7 @@ public abstract class Contraption {
 
 	public CompoundTag writeNBT(HolderLookup.Provider registries, boolean spawnPacket) {
 		CompoundTag nbt = new CompoundTag();
-		ResourceLocation typeId = this.getType().holder.key().location();
+		Identifier typeId = this.getType().holder.key().location();
 		nbt.putString("Type", typeId.toString());
 
 		CompoundTag blocksNBT = writeBlocksCompound(spawnPacket);

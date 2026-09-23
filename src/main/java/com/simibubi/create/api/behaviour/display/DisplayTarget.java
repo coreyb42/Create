@@ -21,7 +21,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -101,7 +101,7 @@ public abstract class DisplayTarget {
 	 * Get the DisplayTarget with the given ID, accounting for legacy names.
 	 */
 	@Nullable
-	public static DisplayTarget get(@Nullable ResourceLocation id) {
+	public static DisplayTarget get(@Nullable Identifier id) {
 		if (id == null)
 			return null;
 

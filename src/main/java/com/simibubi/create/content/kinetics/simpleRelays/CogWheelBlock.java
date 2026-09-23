@@ -10,7 +10,6 @@ import com.simibubi.create.content.kinetics.speedController.SpeedControllerBlock
 import com.simibubi.create.foundation.advancement.AllAdvancements;
 
 import net.createmod.catnip.data.Iterate;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -34,7 +33,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public class CogWheelBlock extends AbstractSimpleShaftBlock implements ICogWheel, EncasableBlock {
 
 	boolean isLarge;

@@ -66,7 +66,7 @@ import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -211,14 +211,14 @@ public class BuilderTransformers {
 					.texture("casing", Create.asResource("block/" + casing + "_casing"))
 					.texture("particle", Create.asResource("block/" + casing + "_casing"))
 					.texture("4", Create.asResource("block/" + gearbox))
-					.texture("1", ResourceLocation.withDefaultNamespace("block/stripped_" + wood + "_log_top"))
+					.texture("1", Identifier.withDefaultNamespace("block/stripped_" + wood + "_log_top"))
 					.texture("side", Create.asResource("block/" + casing + encasedSuffix));
 			}, false))
 			.item()
 			.model((c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/" + blockFolder + "/item"))
 				.texture("casing", Create.asResource("block/" + casing + "_casing"))
 				.texture("particle", Create.asResource("block/" + casing + "_casing"))
-				.texture("1", ResourceLocation.withDefaultNamespace("block/stripped_" + wood + "_log_top"))
+				.texture("1", Identifier.withDefaultNamespace("block/stripped_" + wood + "_log_top"))
 				.texture("side", Create.asResource("block/" + casing + encasedSuffix)))
 			.build();
 	}
@@ -339,7 +339,7 @@ public class BuilderTransformers {
 	}
 
 	public static <B extends BeltTunnelBlock> NonNullUnaryOperator<BlockBuilder<B, CreateRegistrate>> beltTunnel(
-		String type, ResourceLocation particleTexture) {
+		String type, Identifier particleTexture) {
 		String prefix = "block/tunnel/" + type + "_tunnel";
 		String funnel_prefix = "block/funnel/" + type + "_funnel";
 		return b -> b.initialProperties(SharedProperties::stone)
@@ -388,11 +388,11 @@ public class BuilderTransformers {
 
 	public static <B extends Block, P> NonNullUnaryOperator<BlockBuilder<B, P>> bearing(String prefix,
 																						String backTexture) {
-		ResourceLocation baseBlockModelLocation = Create.asResource("block/bearing/block");
-		ResourceLocation baseItemModelLocation = Create.asResource("block/bearing/item");
-		ResourceLocation topTextureLocation = Create.asResource("block/bearing_top");
-		ResourceLocation sideTextureLocation = Create.asResource("block/" + prefix + "_bearing_side");
-		ResourceLocation backTextureLocation = Create.asResource("block/" + backTexture);
+		Identifier baseBlockModelLocation = Create.asResource("block/bearing/block");
+		Identifier baseItemModelLocation = Create.asResource("block/bearing/item");
+		Identifier topTextureLocation = Create.asResource("block/bearing_top");
+		Identifier sideTextureLocation = Create.asResource("block/" + prefix + "_bearing_side");
+		Identifier backTextureLocation = Create.asResource("block/" + backTexture);
 		return b -> b.initialProperties(SharedProperties::stone)
 			.properties(p -> p.noOcclusion())
 			.blockstate((c, p) -> p.directionalBlock(c.get(), p.models()
@@ -414,9 +414,9 @@ public class BuilderTransformers {
 				String[] variants = {"single", "top", "bottom", "left", "right"};
 				Map<String, ModelFile> models = new HashMap<>();
 
-				ResourceLocation crate = p.modLoc("block/crate_" + type);
-				ResourceLocation side = p.modLoc("block/crate_" + type + "_side");
-				ResourceLocation casing = p.modLoc("block/" + type + "_casing");
+				Identifier crate = p.modLoc("block/crate_" + type);
+				Identifier side = p.modLoc("block/crate_" + type + "_side");
+				Identifier casing = p.modLoc("block/" + type + "_casing");
 
 				for (String variant : variants)
 					models.put(variant, p.models()

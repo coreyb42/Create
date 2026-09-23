@@ -14,7 +14,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
@@ -38,7 +38,7 @@ public class ProcessingOutput {
 	private final DataComponentPatch patch;
 	private final float chance;
 
-	private ResourceLocation datagenOutput;
+	private Identifier datagenOutput;
 
 	public ProcessingOutput(ItemStack stack, float chance) {
 		this(stack.getItem(), stack.getCount(), stack.getComponentsPatch(), chance);
@@ -55,11 +55,11 @@ public class ProcessingOutput {
 		this.chance = chance;
 	}
 
-	public ProcessingOutput(ResourceLocation item, int count, float chance) {
+	public ProcessingOutput(Identifier item, int count, float chance) {
 		this(item, count, DataComponentPatch.EMPTY, chance);
 	}
 
-	public ProcessingOutput(ResourceLocation item, int count, DataComponentPatch patch, float chance) {
+	public ProcessingOutput(Identifier item, int count, DataComponentPatch patch, float chance) {
 		this.item = Items.AIR;
 		this.datagenOutput = item;
 		this.count = count;
@@ -100,9 +100,9 @@ public class ProcessingOutput {
 
 	@ScheduledForRemoval(inVersion = "1.21.1+ Port")
 	@Deprecated(since = "6.0.3", forRemoval = true)
-	private static final Codec<Either<ItemStack, Pair<ResourceLocation, Integer>>> ITEM_CODEC_OLD = Codec.either(
+	private static final Codec<Either<ItemStack, Pair<Identifier, Integer>>> ITEM_CODEC_OLD = Codec.either(
 		ItemStack.SINGLE_ITEM_CODEC,
-		ResourceLocation.CODEC.comapFlatMap(
+		Identifier.CODEC.comapFlatMap(
 			loc -> DataResult.error(() -> "Compat cannot be deserialized"),
 			Pair::getFirst
 		)
@@ -119,9 +119,9 @@ public class ProcessingOutput {
 		compat -> new ProcessingOutput(compat.getFirst(), compat.getSecond(), chance)
 	)));
 
-	private static final Codec<Either<Item, ResourceLocation>> ITEM_CODEC = Codec.either(
+	private static final Codec<Either<Item, Identifier>> ITEM_CODEC = Codec.either(
 		BuiltInRegistries.ITEM.byNameCodec(),
-		ResourceLocation.CODEC
+		Identifier.CODEC
 	);
 
 	public static final Codec<ProcessingOutput> CODEC_NEW = RecordCodecBuilder.create(i -> i.group(

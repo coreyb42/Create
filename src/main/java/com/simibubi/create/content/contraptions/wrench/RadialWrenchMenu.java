@@ -46,7 +46,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.HopperBlock;
@@ -69,7 +69,7 @@ public class RadialWrenchMenu extends AbstractSimiScreen {
 		registerRotationProperty(SequencedGearshiftBlock.VERTICAL, "Vertical");
 	}
 
-	public static final Set<ResourceLocation> BLOCK_BLACKLIST = new HashSet<>();
+	public static final Set<Identifier> BLOCK_BLACKLIST = new HashSet<>();
 
 	static {
 		registerBlacklistedBlock(AllBlocks.LARGE_WATER_WHEEL.getId());
@@ -83,7 +83,7 @@ public class RadialWrenchMenu extends AbstractSimiScreen {
 		VALID_PROPERTIES.put(property, label);
 	}
 
-	public static void registerBlacklistedBlock(ResourceLocation location) {
+	public static void registerBlacklistedBlock(Identifier location) {
 		if (BLOCK_BLACKLIST.contains(location))
 			return;
 

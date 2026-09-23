@@ -9,7 +9,6 @@ import com.simibubi.create.content.equipment.wrench.IWrenchable;
 
 import net.createmod.catnip.data.Iterate;
 import net.createmod.catnip.math.VecHelper;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -39,7 +38,6 @@ import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.phys.Vec3;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public class ControllerRailBlock extends BaseRailBlock implements IWrenchable {
 
 	public static final EnumProperty<RailShape> SHAPE = BlockStateProperties.RAIL_SHAPE_STRAIGHT;

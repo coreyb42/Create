@@ -15,7 +15,6 @@ import net.createmod.catnip.data.Iterate;
 import net.createmod.catnip.placement.IPlacementHelper;
 import net.createmod.catnip.placement.PlacementHelpers;
 import net.createmod.catnip.placement.PlacementOffset;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -70,7 +69,6 @@ public class CogwheelBlockItem extends BlockItem {
 		return super.onItemUseFirst(stack, context);
 	}
 
-	@MethodsReturnNonnullByDefault
 	private static class SmallCogHelper extends DiagonalCogHelper {
 
 		@Override
@@ -109,7 +107,6 @@ public class CogwheelBlockItem extends BlockItem {
 		}
 	}
 
-	@MethodsReturnNonnullByDefault
 	private static class LargeCogHelper extends DiagonalCogHelper {
 
 		@Override
@@ -149,7 +146,6 @@ public class CogwheelBlockItem extends BlockItem {
 		}
 	}
 
-	@MethodsReturnNonnullByDefault
 	public abstract static class DiagonalCogHelper implements IPlacementHelper {
 
 		@Override
@@ -193,7 +189,6 @@ public class CogwheelBlockItem extends BlockItem {
 		}
 	}
 
-	@MethodsReturnNonnullByDefault
 	public static class IntegratedLargeCogHelper implements IPlacementHelper {
 
 		@Override
@@ -248,7 +243,6 @@ public class CogwheelBlockItem extends BlockItem {
 
 	}
 
-	@MethodsReturnNonnullByDefault
 	public static class IntegratedSmallCogHelper implements IPlacementHelper {
 
 		@Override

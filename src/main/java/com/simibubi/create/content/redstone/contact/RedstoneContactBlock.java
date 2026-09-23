@@ -9,7 +9,6 @@ import com.simibubi.create.content.contraptions.elevator.ElevatorColumn.ColumnCo
 import com.simibubi.create.foundation.block.WrenchableDirectionalBlock;
 import com.simibubi.create.foundation.utility.BlockHelper;
 
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -29,7 +28,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public class RedstoneContactBlock extends WrenchableDirectionalBlock {
 
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;

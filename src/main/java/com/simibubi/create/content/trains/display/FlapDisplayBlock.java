@@ -19,7 +19,6 @@ import net.createmod.catnip.data.Iterate;
 import net.createmod.catnip.placement.IPlacementHelper;
 import net.createmod.catnip.placement.PlacementHelpers;
 import net.createmod.catnip.placement.PlacementOffset;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
@@ -333,7 +332,6 @@ public class FlapDisplayBlock extends HorizontalKineticBlock
 
 	private static final int placementHelperId = PlacementHelpers.register(new PlacementHelper());
 
-	@MethodsReturnNonnullByDefault
 	private static class PlacementHelper implements IPlacementHelper {
 		@Override
 		public Predicate<ItemStack> getItemPredicate() {

@@ -7,7 +7,7 @@ import com.simibubi.create.foundation.advancement.AllAdvancements;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup.RegistryLookup;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -29,7 +29,7 @@ public class DivingHelmetItem extends BaseArmorItem {
 	public static final EquipmentSlot SLOT = EquipmentSlot.HEAD;
 	public static final ArmorItem.Type TYPE = ArmorItem.Type.HELMET;
 
-	public DivingHelmetItem(Holder<ArmorMaterial> material, Properties properties, ResourceLocation textureLoc) {
+	public DivingHelmetItem(Holder<ArmorMaterial> material, Properties properties, Identifier textureLoc) {
 		super(material, TYPE, properties, textureLoc);
 	}
 

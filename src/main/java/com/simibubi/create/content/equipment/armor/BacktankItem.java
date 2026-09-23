@@ -9,7 +9,7 @@ import com.simibubi.create.AllDataComponents;
 import com.simibubi.create.foundation.item.LayeredArmorItem;
 
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -32,7 +32,7 @@ public class BacktankItem extends BaseArmorItem {
 
 	private final Supplier<BacktankBlockItem> blockItem;
 
-	public BacktankItem(Holder<ArmorMaterial> material, Properties properties, ResourceLocation textureLoc, Supplier<BacktankBlockItem> placeable) {
+	public BacktankItem(Holder<ArmorMaterial> material, Properties properties, Identifier textureLoc, Supplier<BacktankBlockItem> placeable) {
 		super(material, TYPE, properties, textureLoc);
 		this.blockItem = placeable;
 	}
@@ -108,7 +108,7 @@ public class BacktankItem extends BaseArmorItem {
 	}
 
 	public static class Layered extends BacktankItem implements LayeredArmorItem {
-		public Layered(Holder<ArmorMaterial> material, Properties properties, ResourceLocation textureLoc, Supplier<BacktankBlockItem> placeable) {
+		public Layered(Holder<ArmorMaterial> material, Properties properties, Identifier textureLoc, Supplier<BacktankBlockItem> placeable) {
 			super(material, properties, textureLoc, placeable);
 		}
 

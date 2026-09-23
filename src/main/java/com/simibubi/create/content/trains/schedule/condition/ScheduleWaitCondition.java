@@ -14,7 +14,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
 
 public abstract class ScheduleWaitCondition extends ScheduleDataEntry {
@@ -38,9 +38,9 @@ public abstract class ScheduleWaitCondition extends ScheduleDataEntry {
 	}
 
 	public static ScheduleWaitCondition fromTag(HolderLookup.Provider registries, CompoundTag tag) {
-		ResourceLocation location = ResourceLocation.parse(tag.getString("Id"));
+		Identifier location = Identifier.parse(tag.getString("Id"));
 		Supplier<? extends ScheduleWaitCondition> supplier = null;
-		for (Pair<ResourceLocation, Supplier<? extends ScheduleWaitCondition>> pair : Schedule.CONDITION_TYPES)
+		for (Pair<Identifier, Supplier<? extends ScheduleWaitCondition>> pair : Schedule.CONDITION_TYPES)
 			if (pair.getFirst()
 				.equals(location))
 				supplier = pair.getSecond();

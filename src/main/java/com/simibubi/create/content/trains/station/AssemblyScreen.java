@@ -20,13 +20,13 @@ import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class AssemblyScreen extends AbstractStationScreen {
 
 	private IconButton quitAssembly;
 	private IconButton toggleAssemblyButton;
-	private List<ResourceLocation> iconTypes;
+	private List<Identifier> iconTypes;
 	private ScrollInput iconTypeScroll;
 
 	public AssemblyScreen(StationBlockEntity be, GlobalStation station) {
@@ -157,7 +157,7 @@ public class AssemblyScreen extends AbstractStationScreen {
 		super.removed();
 		Train train = displayedTrain.get();
 		if (train != null) {
-			ResourceLocation iconId = iconTypes.get(iconTypeScroll.getState());
+			Identifier iconId = iconTypes.get(iconTypeScroll.getState());
 			train.icon = TrainIconType.byId(iconId);
 			CatnipServices.NETWORK.sendToServer(new TrainEditPacket.Serverbound(train.id, "", iconId, train.mapColorIndex));
 		}

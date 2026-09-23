@@ -14,7 +14,7 @@ import com.tterrag.registrate.util.nullness.NonNullFunction;
 
 import net.minecraft.core.Holder;
 import net.minecraft.data.tags.TagsProvider;
-import net.minecraft.data.tags.TagsProvider.TagAppender;
+import net.minecraft.data.tags.TagAppender;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagBuilder;

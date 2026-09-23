@@ -14,14 +14,14 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 public class AllIcons implements ScreenElement {
 
-	public static final ResourceLocation ICON_ATLAS = Create.asResource("textures/gui/icons.png");
+	public static final Identifier ICON_ATLAS = Create.asResource("textures/gui/icons.png");
 	public static final int ICON_ATLAS_SIZE = 256;
 
 	private static int x = 0, y = -1;

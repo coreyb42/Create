@@ -17,7 +17,7 @@ import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.IronBarsBlock;
@@ -113,8 +113,8 @@ public class MetalBarsGen {
 
 	private static ModelFile barsSubModel(RegistrateBlockstateProvider p, String name, String suffix,
 										  boolean specialEdge) {
-		ResourceLocation barsTexture = p.modLoc("block/bars/" + name + "_bars");
-		ResourceLocation edgeTexture = specialEdge ? p.modLoc("block/bars/" + name + "_bars_edge") : barsTexture;
+		Identifier barsTexture = p.modLoc("block/bars/" + name + "_bars");
+		Identifier edgeTexture = specialEdge ? p.modLoc("block/bars/" + name + "_bars_edge") : barsTexture;
 		return p.models()
 			.withExistingParent(name + "_" + suffix, p.modLoc("block/bars/" + suffix))
 			.texture("bars", barsTexture)
@@ -135,7 +135,7 @@ public class MetalBarsGen {
 			.blockstate(barsBlockState(name, specialEdge))
 			.item()
 			.model((c, p) -> {
-				ResourceLocation barsTexture = p.modLoc("block/bars/" + name + "_bars");
+				Identifier barsTexture = p.modLoc("block/bars/" + name + "_bars");
 				p.generated(c, barsTexture);
 			})
 			.recipe((c, p) -> p.stonecutting(ingredient.get(), RecipeCategory.DECORATIONS, c::get, 4))

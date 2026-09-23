@@ -38,7 +38,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -63,7 +63,7 @@ public abstract class AbstractBogeyBlock<T extends AbstractBogeyBlockEntity> ext
 			block -> (AbstractBogeyBlock<?>) block, Function.identity()
 	);
 	public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.HORIZONTAL_AXIS;
-	static final List<ResourceLocation> BOGEYS = new ArrayList<>();
+	static final List<Identifier> BOGEYS = new ArrayList<>();
 	public BogeySizes.BogeySize size;
 
 	public AbstractBogeyBlock(Properties pProperties, BogeySizes.BogeySize size) {
@@ -91,7 +91,7 @@ public abstract class AbstractBogeyBlock<T extends AbstractBogeyBlockEntity> ext
 	 * Only for internal Create use. If you have your own style set, do not call this method
 	 */
 	@ApiStatus.Internal
-	public static void registerStandardBogey(ResourceLocation block) {
+	public static void registerStandardBogey(Identifier block) {
 		BOGEYS.add(block);
 	}
 
@@ -234,14 +234,14 @@ public abstract class AbstractBogeyBlock<T extends AbstractBogeyBlockEntity> ext
 	/**
 	 * If, instead of using the style-based cycling system you prefer to use separate blocks, return them from this method
 	 */
-	protected List<ResourceLocation> getBogeyBlockCycle() {
+	protected List<Identifier> getBogeyBlockCycle() {
 		return BOGEYS;
 	}
 
 	@Override
 	public BlockState getRotatedBlockState(BlockState state, Direction targetedFace) {
 		Block block = state.getBlock();
-		List<ResourceLocation> bogeyCycle = getBogeyBlockCycle();
+		List<Identifier> bogeyCycle = getBogeyBlockCycle();
 		int indexOf = bogeyCycle.indexOf(RegisteredObjectsHelper.getKeyOrThrow(block));
 		if (indexOf == -1)
 			return state;
@@ -250,7 +250,7 @@ public abstract class AbstractBogeyBlock<T extends AbstractBogeyBlockEntity> ext
 		boolean trackAxisAlongFirstCoordinate = isTrackAxisAlongFirstCoordinate(state);
 
 		while (index != indexOf) {
-			ResourceLocation id = bogeyCycle.get(index);
+			Identifier id = bogeyCycle.get(index);
 			Block newBlock = BuiltInRegistries.BLOCK.get(id);
 			if (newBlock instanceof AbstractBogeyBlock<?> bogey) {
 				BlockState matchingBogey = bogey.getMatchingBogey(bogeyUpDirection, trackAxisAlongFirstCoordinate);

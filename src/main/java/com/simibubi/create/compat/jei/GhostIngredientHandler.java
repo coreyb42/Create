@@ -14,12 +14,10 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.handlers.IGhostIngredientHandler;
 import mezz.jei.api.ingredients.ITypedIngredient;
 import net.createmod.catnip.platform.CatnipServices;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class GhostIngredientHandler<T extends GhostItemMenu<?>>
 	implements IGhostIngredientHandler<AbstractSimiContainerScreen<T>> {

@@ -12,7 +12,6 @@ import com.simibubi.create.foundation.mixin.accessor.LivingEntityAccessor;
 
 import net.createmod.catnip.data.TriState;
 import net.createmod.catnip.math.VecHelper;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -43,7 +42,6 @@ import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
 
-@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class SandPaperItem extends Item implements CustomUseEffectsItem {
 

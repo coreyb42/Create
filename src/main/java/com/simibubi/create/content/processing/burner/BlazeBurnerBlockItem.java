@@ -12,7 +12,6 @@ import com.simibubi.create.AllTags.AllEntityTags;
 
 import net.createmod.catnip.math.VecHelper;
 import net.createmod.catnip.registry.RegisteredObjectsHelper;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -35,7 +34,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.phys.Vec3;
 
-@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class BlazeBurnerBlockItem extends BlockItem {
 

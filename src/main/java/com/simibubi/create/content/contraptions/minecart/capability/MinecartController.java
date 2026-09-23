@@ -42,13 +42,12 @@ import net.minecraft.world.phys.Vec3;
 
 import net.neoforged.neoforge.attachment.IAttachmentHolder;
 import net.neoforged.neoforge.attachment.IAttachmentSerializer;
-import net.neoforged.neoforge.common.util.INBTSerializable;
 
 /**
  * Extended code for Minecarts, this allows for handling stalled carts and
  * coupled trains
  */
-public class MinecartController implements INBTSerializable<CompoundTag> {
+public class MinecartController {
 	public static final MinecartController EMPTY = new MinecartController.Empty();
 
 	public static final IAttachmentSerializer<CompoundTag, MinecartController> SERIALIZER = Type.SERIALIZER;
@@ -322,7 +321,6 @@ public class MinecartController implements INBTSerializable<CompoundTag> {
 		NetworkHelper.INSTANCE.sendToClientsTrackingEntity(this.cart(), new MinecartControllerUpdatePacket(this, getWorld().registryAccess()));
 	}
 
-	@Override
 	public CompoundTag serializeNBT(@NotNull HolderLookup.Provider provider) {
 		CompoundTag compoundNBT = new CompoundTag();
 
@@ -334,7 +332,6 @@ public class MinecartController implements INBTSerializable<CompoundTag> {
 		return compoundNBT;
 	}
 
-	@Override
 	public void deserializeNBT(@NotNull HolderLookup.Provider provider, CompoundTag nbt) {
 		Optional<StallData> internalSD = Optional.empty();
 		Optional<StallData> externalSD = Optional.empty();

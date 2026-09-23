@@ -32,7 +32,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -281,7 +281,7 @@ public class BezierConnection implements Iterable<BezierConnection.Segment> {
 
 	public void spawnItems(Level level) {
 		if (!level.getGameRules()
-			.getBoolean(GameRules.RULE_DOBLOCKDROPS))
+			.get(GameRules.BLOCK_DROPS))
 			return;
 		Vec3 origin = Vec3.atLowerCornerOf(bePositions.getFirst());
 		for (Segment segment : this) {

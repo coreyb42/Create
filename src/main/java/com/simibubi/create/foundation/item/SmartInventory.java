@@ -12,12 +12,11 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
-import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 public class SmartInventory extends ItemHandlerContainer
-	implements IItemHandlerModifiable, INBTSerializable<CompoundTag> {
+	implements IItemHandlerModifiable {
 
 	protected boolean extractionAllowed;
 	protected boolean insertionAllowed;
@@ -129,12 +128,10 @@ public class SmartInventory extends ItemHandlerContainer
 		return Math.min(getSlotLimit(slot), stack.getMaxStackSize());
 	}
 
-	@Override
 	public CompoundTag serializeNBT(HolderLookup.Provider registries) {
 		return getInv().serializeNBT(registries);
 	}
 
-	@Override
 	public void deserializeNBT(HolderLookup.Provider registries, CompoundTag nbt) {
 		getInv().deserializeNBT(registries, nbt);
 	}

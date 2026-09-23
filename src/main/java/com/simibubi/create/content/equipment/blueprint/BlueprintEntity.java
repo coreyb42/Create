@@ -50,7 +50,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DiodeBlock;
@@ -286,7 +286,7 @@ public class BlueprintEntity extends HangingEntity
 	@Override
 	public void dropItem(@Nullable Entity p_110128_1_) {
 		if (!level().getGameRules()
-			.getBoolean(GameRules.RULE_DOENTITYDROPS))
+			.get(GameRules.ENTITY_DROPS))
 			return;
 
 		playSound(SoundEvents.PAINTING_BREAK, 1.0F, 1.0F);

@@ -96,7 +96,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -1091,7 +1090,6 @@ public abstract class Contraption {
 						.execute(() -> {
 							serverWorld.getPoiManager()
 								.add(add, poiType);
-							DebugPackets.sendPoiAddedPacket(serverWorld, add);
 						});
 				});
 

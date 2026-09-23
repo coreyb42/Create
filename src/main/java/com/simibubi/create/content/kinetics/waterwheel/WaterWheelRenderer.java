@@ -13,12 +13,12 @@ import com.simibubi.create.foundation.model.BakedModelHelper;
 
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import it.unimi.dsi.fastutil.objects.Reference2ReferenceOpenHashMap;
-import net.createmod.catnip.registry.RegisteredObjectsHelper;
-import net.createmod.catnip.render.CachedBuffers;
-import net.createmod.catnip.render.StitchedSprite;
-import net.createmod.catnip.render.SuperBufferFactory;
-import net.createmod.catnip.render.SuperByteBuffer;
-import net.createmod.catnip.render.SuperByteBufferCache;
+import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
+import net.createmod.catnip.api.client.render.CachedBuffers;
+import net.createmod.catnip.api.client.render.StitchedSprite;
+import net.createmod.catnip.api.client.render.SuperBufferFactory;
+import net.createmod.catnip.api.client.render.SuperByteBuffer;
+import net.createmod.catnip.api.client.render.SuperByteBufferCache;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;

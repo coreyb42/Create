@@ -1,6 +1,6 @@
 package com.simibubi.create.foundation.gui.widget;
 
-import net.createmod.catnip.gui.TickableGuiEventListener;
+import net.createmod.catnip.api.client.gui.TickableGuiEventListener;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.AbstractContainerEventHandler;

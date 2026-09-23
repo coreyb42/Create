@@ -5,7 +5,7 @@ import com.simibubi.create.content.equipment.zapper.ShootableGadgetRenderHandler
 import com.simibubi.create.foundation.particle.AirParticleData;
 
 import dev.engine_room.flywheel.lib.transform.TransformStack;
-import net.createmod.catnip.math.VecHelper;
+import net.createmod.catnip.api.math.VecHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.particles.ItemParticleOption;

@@ -5,7 +5,7 @@ import java.util.List;
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.content.logistics.BigItemStack;
 
-import net.createmod.catnip.codecs.stream.CatnipStreamCodecBuilders;
+import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
 import net.createmod.catnip.net.base.ClientboundPacketPayload;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;

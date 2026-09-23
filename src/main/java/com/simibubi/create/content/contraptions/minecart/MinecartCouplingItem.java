@@ -4,7 +4,7 @@ import com.simibubi.create.AllAttachmentTypes;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.content.contraptions.minecart.capability.MinecartController;
 
-import net.createmod.catnip.data.Iterate;
+import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;

@@ -8,10 +8,10 @@ import com.simibubi.create.AllPackets;
 import com.simibubi.create.compat.trainmap.TrainMapSync.TrainMapSyncEntry;
 import net.createmod.catnip.net.base.ClientboundPacketPayload;
 
-import net.createmod.catnip.codecs.stream.CatnipStreamCodecBuilders;
+import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.UUIDUtil;
-import net.createmod.catnip.data.Pair;
+import net.createmod.catnip.api.data.Pair;
 import net.minecraft.network.FriendlyByteBuf;
 
 import net.minecraft.network.codec.ByteBufCodecs;

@@ -29,7 +29,7 @@ import com.simibubi.create.foundation.utility.CreateLang;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
-import net.createmod.catnip.gui.AbstractSimiScreen;
+import net.createmod.catnip.api.client.gui.AbstractSimiScreen;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;

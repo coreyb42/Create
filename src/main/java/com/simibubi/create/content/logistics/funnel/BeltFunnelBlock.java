@@ -13,8 +13,8 @@ import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.tterrag.registrate.util.entry.BlockEntry;
 
-import net.createmod.catnip.lang.Lang;
-import net.createmod.catnip.math.VoxelShaper;
+import net.createmod.catnip.api.lang.Lang;
+import net.createmod.catnip.api.math.VoxelShaper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;

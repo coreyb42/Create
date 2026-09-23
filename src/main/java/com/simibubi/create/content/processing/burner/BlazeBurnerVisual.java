@@ -2,7 +2,7 @@ package com.simibubi.create.content.processing.burner;
 
 import java.util.function.Consumer;
 
-import net.createmod.catnip.animation.AnimationTickHolder;
+import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.AllPartialModels;
@@ -22,8 +22,8 @@ import dev.engine_room.flywheel.lib.transform.Translate;
 import dev.engine_room.flywheel.lib.visual.AbstractBlockEntityVisual;
 import dev.engine_room.flywheel.lib.visual.SimpleDynamicVisual;
 import dev.engine_room.flywheel.lib.visual.SimpleTickableVisual;
-import net.createmod.catnip.render.SpriteShiftEntry;
-import net.createmod.catnip.math.AngleHelper;
+import net.createmod.catnip.api.client.render.SpriteShiftEntry;
+import net.createmod.catnip.api.math.AngleHelper;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;

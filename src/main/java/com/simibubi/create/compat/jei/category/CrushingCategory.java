@@ -15,7 +15,7 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import net.createmod.catnip.layout.LayoutHelper;
+import net.createmod.catnip.api.client.gui.layout.LayoutHelper;
 import net.minecraft.client.gui.GuiGraphics;
 
 @ParametersAreNonnullByDefault

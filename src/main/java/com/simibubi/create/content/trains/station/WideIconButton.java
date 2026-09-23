@@ -3,7 +3,7 @@ package com.simibubi.create.content.trains.station;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.widget.IconButton;
 
-import net.createmod.catnip.gui.element.ScreenElement;
+import net.createmod.catnip.api.client.gui.element.ScreenElement;
 import net.minecraft.client.gui.GuiGraphics;
 
 public class WideIconButton extends IconButton {

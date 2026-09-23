@@ -7,8 +7,8 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import com.simibubi.create.foundation.fluid.FluidRenderer;
 
-import net.createmod.catnip.data.Iterate;
-import net.createmod.catnip.animation.LerpedFloat;
+import net.createmod.catnip.api.data.Iterate;
+import net.createmod.catnip.api.animation.LerpedFloat;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;

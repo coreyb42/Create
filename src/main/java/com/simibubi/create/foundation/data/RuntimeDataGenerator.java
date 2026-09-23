@@ -27,7 +27,7 @@ import com.simibubi.create.foundation.pack.DynamicPack;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.createmod.catnip.codecs.CatnipCodecUtils;
+import net.createmod.catnip.api.data.codec.CatnipCodecUtils;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;

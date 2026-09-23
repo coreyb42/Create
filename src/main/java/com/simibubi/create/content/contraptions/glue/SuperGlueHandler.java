@@ -6,9 +6,9 @@ import java.util.Set;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.api.contraption.BlockMovementChecks;
 
-import net.createmod.catnip.data.Iterate;
-import net.createmod.catnip.levelWrappers.RayTraceLevel;
-import net.createmod.catnip.placement.IPlacementHelper;
+import net.createmod.catnip.api.data.Iterate;
+import net.createmod.catnip.api.level.wrapper.RayTraceLevel;
+import net.createmod.catnip.api.placement.IPlacementHelper;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

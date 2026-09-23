@@ -7,8 +7,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.google.common.cache.Cache;
 import com.simibubi.create.foundation.utility.TickBasedCache;
 
-import net.createmod.catnip.animation.AnimationTickHolder;
-import net.createmod.catnip.data.WorldAttached;
+import net.createmod.catnip.api.client.animation.AnimationTickHolder;
+import net.createmod.catnip.api.data.WorldAttached;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;

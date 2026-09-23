@@ -11,7 +11,7 @@ import com.simibubi.create.api.equipment.potatoCannon.PotatoProjectileEntityHitA
 import com.simibubi.create.api.registry.CreateBuiltInRegistries;
 import com.simibubi.create.foundation.codec.CreateCodecs;
 
-import net.createmod.catnip.data.WorldAttached;
+import net.createmod.catnip.api.data.WorldAttached;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;

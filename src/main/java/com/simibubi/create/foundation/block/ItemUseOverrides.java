@@ -6,8 +6,8 @@ import java.util.Set;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.utility.BlockHelper;
 
-import net.createmod.catnip.registry.RegisteredObjectsHelper;
-import net.createmod.catnip.math.VecHelper;
+import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
+import net.createmod.catnip.api.math.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;

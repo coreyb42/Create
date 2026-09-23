@@ -16,7 +16,7 @@ import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
 
-import net.createmod.catnip.lang.Lang;
+import net.createmod.catnip.api.lang.Lang;
 import net.minecraft.util.Util;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;

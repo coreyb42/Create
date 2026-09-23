@@ -6,7 +6,7 @@ import com.simibubi.create.Create;
 import com.simibubi.create.compat.Mods;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 
-import net.createmod.catnip.registry.RegisteredObjectsHelper;
+import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
 import net.createmod.ponder.api.registration.PonderTagRegistrationHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;

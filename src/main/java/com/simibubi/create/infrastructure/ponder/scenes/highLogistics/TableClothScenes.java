@@ -13,7 +13,7 @@ import com.simibubi.create.content.logistics.tableCloth.TableClothBlock;
 import com.simibubi.create.content.logistics.tableCloth.TableClothBlockEntity;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
 
-import net.createmod.catnip.math.Pointing;
+import net.createmod.catnip.api.math.Pointing;
 import net.createmod.ponder.api.PonderPalette;
 import net.createmod.ponder.api.element.ParrotPose.FacePointOfInterestPose;
 import net.createmod.ponder.api.scene.SceneBuilder;

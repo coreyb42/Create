@@ -1,7 +1,7 @@
 package com.simibubi.create.foundation.model;
 
-import static net.createmod.catnip.render.SpriteShiftEntry.getUnInterpolatedU;
-import static net.createmod.catnip.render.SpriteShiftEntry.getUnInterpolatedV;
+import static net.createmod.catnip.api.client.render.SpriteShiftEntry.getUnInterpolatedU;
+import static net.createmod.catnip.api.client.render.SpriteShiftEntry.getUnInterpolatedV;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.UnaryOperator;
 
-import net.createmod.catnip.data.Iterate;
-import net.createmod.catnip.math.VecHelper;
+import net.createmod.catnip.api.data.Iterate;
+import net.createmod.catnip.api.math.VecHelper;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;

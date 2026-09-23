@@ -14,7 +14,7 @@ import com.simibubi.create.content.logistics.packager.InventorySummary;
 
 import dan200.computercraft.api.detail.VanillaDetailRegistries;
 import dan200.computercraft.api.lua.LuaException;
-import net.createmod.catnip.data.Glob;
+import net.createmod.catnip.api.data.Glob;
 
 import net.neoforged.neoforge.items.IItemHandler;
 

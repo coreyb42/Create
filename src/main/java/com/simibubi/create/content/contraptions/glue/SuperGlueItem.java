@@ -2,7 +2,7 @@ package com.simibubi.create.content.contraptions.glue;
 
 import com.simibubi.create.content.contraptions.chassis.AbstractChassisBlock;
 
-import net.createmod.catnip.math.VecHelper;
+import net.createmod.catnip.api.math.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;

@@ -7,7 +7,7 @@ import java.util.Map;
 import com.google.common.base.Strings;
 import com.simibubi.create.foundation.utility.CreateLang;
 
-import net.createmod.catnip.nbt.NBTHelper;
+import net.createmod.catnip.api.nbt.NBTHelper;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

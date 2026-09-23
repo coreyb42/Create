@@ -1,6 +1,6 @@
 package com.simibubi.create;
 
-import net.createmod.catnip.render.BindableTexture;
+import net.createmod.catnip.api.client.render.BindableTexture;
 import net.minecraft.resources.Identifier;
 
 public enum AllSpecialTextures implements BindableTexture {

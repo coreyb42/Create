@@ -6,7 +6,7 @@ import java.util.function.UnaryOperator;
 import com.google.common.base.Supplier;
 import com.simibubi.create.Create;
 
-import net.createmod.catnip.registry.RegisteredObjectsHelper;
+import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;

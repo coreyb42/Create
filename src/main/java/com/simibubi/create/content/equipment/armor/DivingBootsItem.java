@@ -1,6 +1,6 @@
 package com.simibubi.create.content.equipment.armor;
 
-import net.createmod.catnip.nbt.NBTHelper;
+import net.createmod.catnip.api.nbt.NBTHelper;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.FluidTags;
